@@ -64,6 +64,7 @@ class MovieViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         let title = movie["title"] as! String
         let overview = movie["overview"] as! String
+        let voteAverage = movie["vote_average"] as! NSNumber
         let image2 = movie["poster_path"] as! String
         
         let baseUrl = "http://image.tmdb.org/t/p/w500"
@@ -71,6 +72,7 @@ class MovieViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         cell.titleLabel.text = title
         cell.overviewLabel.text = "\(overview)"
+        cell.voteLabel.text = "\(voteAverage)"
         cell.movieImageView.setImageWith(imageUrl)
         // cell.movieImageView.setImageUrl(image)
 
