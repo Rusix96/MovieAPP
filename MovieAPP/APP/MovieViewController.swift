@@ -17,9 +17,9 @@ class MovieViewController: UIViewController, UITableViewDelegate, UITableViewDat
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.isNavigationBarHidden = true
         tableView.dataSource = self
         tableView.delegate = self
         searchBar.delegate = self
@@ -50,7 +50,6 @@ class MovieViewController: UIViewController, UITableViewDelegate, UITableViewDat
                         self.movies = (dataDictionary["results"] as! [NSDictionary])
                         self.moviesFilter = self.movies
                         self.tableView.reloadData()
-                        
                     }
                 }
         })
@@ -71,21 +70,18 @@ class MovieViewController: UIViewController, UITableViewDelegate, UITableViewDat
         let movie = moviesFilter[indexPath.row]
         
         let title = movie["title"] as! String
-        //moviesFilter.append(title)
         let overview = movie["overview"] as! String
         let voteAverage = movie["vote_average"] as! NSNumber
-        let image2 = movie["poster_path"] as! String
+        let imageMovie = movie["poster_path"] as! String
         
         let baseUrl = "http://image.tmdb.org/t/p/w500"
-        let imageUrl = URL(string: baseUrl + image2)!
-        
+        let imageUrl = URL(string: baseUrl + imageMovie)!
         
         cell.titleLabel.text = title
         cell.overviewLabel.text = "\(overview)"
         cell.voteLabel.text = "\(voteAverage)"
         cell.movieImageView.setImageWith(imageUrl)
-        // cell.movieImageView.setImageUrl(image)
-
+        
         return cell
     }
     
@@ -93,44 +89,43 @@ class MovieViewController: UIViewController, UITableViewDelegate, UITableViewDat
         let vc = storyboard?.instantiateViewController(withIdentifier: "detailMovie") as! DetailsVC
         let movie = moviesFilter[indexPath.row]
         
-        let image2 = movie["poster_path"] as! String
+        let imageMovie = movie["poster_path"] as! String
         let title = movie["title"] as! String
         let overview = movie["overview"] as! String
         
         let baseUrl = "http://image.tmdb.org/t/p/w500"
-        let imageUrl = URL(string: baseUrl + image2)!
+        let imageUrl = URL(string: baseUrl + imageMovie)!
+        let imageVMovie : UIImageView = UIImageView()
         
-        let imageVi : UIImageView = UIImageView()
+        imageVMovie.setImageWith(imageUrl)
         
-        imageVi.setImageWith(imageUrl)
-     
         vc.titleMovie = title
         vc.overviewMovie = overview
-        vc.moviePoster = imageVi.image!
+        vc.moviePoster = imageVMovie.image!
         
         //Present to the view controller
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        
         let rotationTransform = CATransform3DTranslate(CATransform3DIdentity, -500, 10, 0)
+        cell.alpha = 0
         cell.layer.transform = rotationTransform
         UIView.animate(withDuration: 0.35) {
-         cell.layer.transform = CATransform3DIdentity
+            cell.layer.transform = CATransform3DIdentity
+            cell.alpha = 1.0
         }
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        
-            moviesFilter = searchText.isEmpty ? movies : movies.filter({(movie: NSDictionary) -> Bool in
-                let title = movie["title"] as! String
-                
-                return title.range(of: searchText, options: .caseInsensitive) != nil
-        
-                
-            })
+        moviesFilter = searchText.isEmpty ? movies : movies.filter({(movie: NSDictionary) -> Bool in
+            let title = movie["title"] as! String
+            
+            return title.range(of: searchText, options: .caseInsensitive) != nil
+        })
         tableView.reloadData()
-        }
+    }
     
     //Hide keyboard when press search
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar)  {

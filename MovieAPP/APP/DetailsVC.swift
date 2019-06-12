@@ -23,11 +23,5 @@ class DetailsVC: UIViewController {
             movieImage.image = moviePoster
             titleLabel.text = titleMovie
             overviewLabel.text = overviewMovie
-      
-      
     }
-    
-
-  
-
 }
