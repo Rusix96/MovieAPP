@@ -10,7 +10,7 @@ import UIKit
 
 class MovieViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     var movies: [NSDictionary]?
-  
+    
     @IBOutlet weak var tableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,7 +21,7 @@ class MovieViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
     }
     func fetchMovies() {
-    let apiKey = "a07e22bc18f5cb106bfe4cc1f83ad8ed"
+        let apiKey = "a07e22bc18f5cb106bfe4cc1f83ad8ed"
         let url = URL(string: "https://api.themoviedb.org/3/movie/now_playing?api_key=\(apiKey)")
         let request = URLRequest (
             url: url!,
@@ -55,20 +55,25 @@ class MovieViewController: UIViewController, UITableViewDelegate, UITableViewDat
         //If all OK, return all the movies, else, default 0
         return movies?.count ?? 0
     }
-    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100
+    }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MovieCell", for:  indexPath)  as! MovieCell
         let movie = movies![indexPath.row]
         
-        let overview = movie["overview"] as! String
         let title = movie["title"] as! String
-        cell.titleLabel.text = title
-        cell.overviewLabel.text = overview
+        let overview = movie["overview"] as! String
+        let image2 = movie["poster_path"] 
         
-        cell.textLabel?.text = title
+        cell.titleLabel.text = title
+        cell.overviewLabel.text = "\(overview)"
+        // cell.movieImageView.setImageUrl(image)
+        
+        // cell.textLabel?.text = title
         
         return cell
     }
-
+    
 }
 
