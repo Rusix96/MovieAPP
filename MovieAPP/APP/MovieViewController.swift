@@ -112,6 +112,14 @@ class MovieViewController: UIViewController, UITableViewDelegate, UITableViewDat
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let rotationTransform = CATransform3DTranslate(CATransform3DIdentity, -500, 10, 0)
+        cell.layer.transform = rotationTransform
+        UIView.animate(withDuration: 0.35) {
+         cell.layer.transform = CATransform3DIdentity
+        }
+    }
+    
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         
             moviesFilter = searchText.isEmpty ? movies : movies.filter({(movie: NSDictionary) -> Bool in
