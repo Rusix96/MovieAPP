@@ -16,10 +16,9 @@ class MovieViewController: UIViewController, UITableViewDelegate, UITableViewDat
         super.viewDidLoad()
         tableView.dataSource = self
         tableView.delegate = self
-        
         fetchMovies()
-        
     }
+    
     func fetchMovies() {
         let apiKey = "a07e22bc18f5cb106bfe4cc1f83ad8ed"
         let url = URL(string: "https://api.themoviedb.org/3/movie/now_playing?api_key=\(apiKey)")
@@ -27,13 +26,11 @@ class MovieViewController: UIViewController, UITableViewDelegate, UITableViewDat
             url: url!,
             cachePolicy: URLRequest.CachePolicy.reloadIgnoringLocalCacheData,
             timeoutInterval: 10)
-        
         let session = URLSession(
             configuration: URLSessionConfiguration.default,
             delegate: nil,
             delegateQueue: OperationQueue.main
         )
-        
         let task: URLSessionDataTask = session.dataTask(
             with: request,
             completionHandler: { (dataOrNil, response, error) in
@@ -48,16 +45,17 @@ class MovieViewController: UIViewController, UITableViewDelegate, UITableViewDat
                 }
         })
         task.resume()
-        
-        
     }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         //If all OK, return all the movies, else, default 0
         return movies?.count ?? 0
     }
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 100
     }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MovieCell", for:  indexPath)  as! MovieCell
         let movie = movies![indexPath.row]
@@ -69,9 +67,7 @@ class MovieViewController: UIViewController, UITableViewDelegate, UITableViewDat
         cell.titleLabel.text = title
         cell.overviewLabel.text = "\(overview)"
         // cell.movieImageView.setImageUrl(image)
-        
-        // cell.textLabel?.text = title
-        
+
         return cell
     }
     
