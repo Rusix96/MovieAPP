@@ -12,7 +12,7 @@ import AFNetworking
 class MovieViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
     
     var movies: [NSDictionary] = []
-    var moviesLoad : [NSDictionary] = []
+    var moviesFilter : [NSDictionary] = []
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
@@ -23,12 +23,12 @@ class MovieViewController: UIViewController, UITableViewDelegate, UITableViewDat
         tableView.dataSource = self
         tableView.delegate = self
         searchBar.delegate = self
-        moviesLoad = movies
+        moviesFilter = movies
         self.hideKeyboardWhenTappedAround()
-        fetchMovies()
+        getMovies()
     }
     
-    func fetchMovies() {
+    func getMovies() {
         let apiKey = "a07e22bc18f5cb106bfe4cc1f83ad8ed"
         let url = URL(string: "https://api.themoviedb.org/3/movie/now_playing?api_key=\(apiKey)")
         let request = URLRequest (
@@ -48,7 +48,7 @@ class MovieViewController: UIViewController, UITableViewDelegate, UITableViewDat
                         with: data, options:[]) as? NSDictionary {
                         print("response: \(dataDictionary)")
                         self.movies = (dataDictionary["results"] as! [NSDictionary])
-                        self.moviesLoad = self.movies
+                        self.moviesFilter = self.movies
                         self.tableView.reloadData()
                         
                     }
@@ -59,7 +59,7 @@ class MovieViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         //If all OK, return all the movies, else, default 0
-        return moviesLoad.count
+        return moviesFilter.count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -68,16 +68,17 @@ class MovieViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MovieCell", for:  indexPath)  as! MovieCell
-        let movie = moviesLoad[indexPath.row]
+        let movie = moviesFilter[indexPath.row]
         
         let title = movie["title"] as! String
-        //moviesLoad.append(title)
+        //moviesFilter.append(title)
         let overview = movie["overview"] as! String
         let voteAverage = movie["vote_average"] as! NSNumber
         let image2 = movie["poster_path"] as! String
         
         let baseUrl = "http://image.tmdb.org/t/p/w500"
         let imageUrl = URL(string: baseUrl + image2)!
+        
         
         cell.titleLabel.text = title
         cell.overviewLabel.text = "\(overview)"
@@ -88,9 +89,32 @@ class MovieViewController: UIViewController, UITableViewDelegate, UITableViewDat
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let vc = storyboard?.instantiateViewController(withIdentifier: "detailMovie") as! DetailsVC
+        let movie = moviesFilter[indexPath.row]
+        
+        let image2 = movie["poster_path"] as! String
+        let title = movie["title"] as! String
+        let overview = movie["overview"] as! String
+        
+        let baseUrl = "http://image.tmdb.org/t/p/w500"
+        let imageUrl = URL(string: baseUrl + image2)!
+        
+        let imageVi : UIImageView = UIImageView()
+        
+        imageVi.setImageWith(imageUrl)
+     
+        vc.titleMovie = title
+        vc.overviewMovie = overview
+        vc.moviePoster = imageVi.image!
+        
+        //Present to the view controller
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         
-            moviesLoad = searchText.isEmpty ? movies : movies.filter({(movie: NSDictionary) -> Bool in
+            moviesFilter = searchText.isEmpty ? movies : movies.filter({(movie: NSDictionary) -> Bool in
                 let title = movie["title"] as! String
                 
                 return title.range(of: searchText, options: .caseInsensitive) != nil
@@ -99,23 +123,11 @@ class MovieViewController: UIViewController, UITableViewDelegate, UITableViewDat
             })
         tableView.reloadData()
         }
-        
-    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        searchBar.showsCancelButton = true
-    }
-   
-    func searchBarSearchButtonClicked (_ searchBar: UISearchBar) {
-        searchBar.endEditing(true)
-    }
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        searchBar.showsCancelButton = false
-        searchBar.text = ""
+    
+    //Hide keyboard when press search
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar)  {
         searchBar.resignFirstResponder()
     }
-    //Hide keyboard when press search
-    //func searchBarSearchButtonClicked(_ searchBar: UISearchBar)  {
-       // searchBar.resignFirstResponder()
-    //}
     
 }
 
