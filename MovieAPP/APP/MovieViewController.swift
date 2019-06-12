@@ -9,15 +9,22 @@
 import UIKit
 import AFNetworking
 
-class MovieViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class MovieViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
     
-    var movies: [NSDictionary]?
+    var movies: [NSDictionary] = []
+    var moviesLoad : [NSDictionary] = []
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var searchBar: UISearchBar!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
         tableView.delegate = self
+        searchBar.delegate = self
+        moviesLoad = movies
+        self.hideKeyboardWhenTappedAround()
         fetchMovies()
     }
     
@@ -37,10 +44,11 @@ class MovieViewController: UIViewController, UITableViewDelegate, UITableViewDat
             with: request,
             completionHandler: { (dataOrNil, response, error) in
                 if let data = dataOrNil {
-                    if let responseDictionary = try! JSONSerialization.jsonObject(
+                    if let dataDictionary = try! JSONSerialization.jsonObject(
                         with: data, options:[]) as? NSDictionary {
-                        print("response: \(responseDictionary)")
-                        self.movies = responseDictionary["results"] as? [NSDictionary]
+                        print("response: \(dataDictionary)")
+                        self.movies = (dataDictionary["results"] as! [NSDictionary])
+                        self.moviesLoad = self.movies
                         self.tableView.reloadData()
                         
                     }
@@ -51,7 +59,7 @@ class MovieViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         //If all OK, return all the movies, else, default 0
-        return movies?.count ?? 0
+        return moviesLoad.count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -60,9 +68,10 @@ class MovieViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MovieCell", for:  indexPath)  as! MovieCell
-        let movie = movies![indexPath.row]
+        let movie = moviesLoad[indexPath.row]
         
         let title = movie["title"] as! String
+        //moviesLoad.append(title)
         let overview = movie["overview"] as! String
         let voteAverage = movie["vote_average"] as! NSNumber
         let image2 = movie["poster_path"] as! String
@@ -79,5 +88,35 @@ class MovieViewController: UIViewController, UITableViewDelegate, UITableViewDat
         return cell
     }
     
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        
+            moviesLoad = searchText.isEmpty ? movies : movies.filter({(movie: NSDictionary) -> Bool in
+                let title = movie["title"] as! String
+                
+                return title.range(of: searchText, options: .caseInsensitive) != nil
+        
+                
+            })
+        tableView.reloadData()
+        }
+        
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        searchBar.showsCancelButton = true
+    }
+   
+    func searchBarSearchButtonClicked (_ searchBar: UISearchBar) {
+        searchBar.endEditing(true)
+    }
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.showsCancelButton = false
+        searchBar.text = ""
+        searchBar.resignFirstResponder()
+    }
+    //Hide keyboard when press search
+    //func searchBarSearchButtonClicked(_ searchBar: UISearchBar)  {
+       // searchBar.resignFirstResponder()
+    //}
+    
 }
+
 
