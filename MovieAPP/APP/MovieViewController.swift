@@ -57,7 +57,7 @@ class MovieViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        //If all OK, return all the movies, else, default 0
+        
         return moviesFilter.count
     }
     
@@ -68,12 +68,10 @@ class MovieViewController: UIViewController, UITableViewDelegate, UITableViewDat
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MovieCell", for:  indexPath)  as! MovieCell
         let movie = moviesFilter[indexPath.row]
-        
         let title = movie["title"] as! String
         let overview = movie["overview"] as! String
         let voteAverage = movie["vote_average"] as! NSNumber
         let imageMovie = movie["poster_path"] as! String
-        
         let baseUrl = "http://image.tmdb.org/t/p/w500"
         let imageUrl = URL(string: baseUrl + imageMovie)!
         
@@ -88,22 +86,18 @@ class MovieViewController: UIViewController, UITableViewDelegate, UITableViewDat
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = storyboard?.instantiateViewController(withIdentifier: "detailMovie") as! DetailsVC
         let movie = moviesFilter[indexPath.row]
-        
         let imageMovie = movie["poster_path"] as! String
         let title = movie["title"] as! String
         let overview = movie["overview"] as! String
-        
         let baseUrl = "http://image.tmdb.org/t/p/w500"
         let imageUrl = URL(string: baseUrl + imageMovie)!
         let imageVMovie : UIImageView = UIImageView()
-        
         imageVMovie.setImageWith(imageUrl)
         
         vc.titleMovie = title
         vc.overviewMovie = overview
         vc.moviePoster = imageVMovie.image!
         
-        //Present to the view controller
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -127,7 +121,6 @@ class MovieViewController: UIViewController, UITableViewDelegate, UITableViewDat
         tableView.reloadData()
     }
     
-    //Hide keyboard when press search
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar)  {
         searchBar.resignFirstResponder()
     }
