@@ -13,7 +13,6 @@ class MovieViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     var movies: [NSDictionary] = []
     var moviesFilter : [NSDictionary] = []
-    
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
     
@@ -74,7 +73,6 @@ class MovieViewController: UIViewController, UITableViewDelegate, UITableViewDat
         let imageMovie = movie["poster_path"] as! String
         let baseUrl = "http://image.tmdb.org/t/p/w500"
         let imageUrl = URL(string: baseUrl + imageMovie)!
-        
         cell.titleLabel.text = title
         cell.overviewLabel.text = "\(overview)"
         cell.voteLabel.text = "\(voteAverage)"
@@ -93,7 +91,6 @@ class MovieViewController: UIViewController, UITableViewDelegate, UITableViewDat
         let imageUrl = URL(string: baseUrl + imageMovie)!
         let imageVMovie : UIImageView = UIImageView()
         imageVMovie.setImageWith(imageUrl)
-        
         vc.titleMovie = title
         vc.overviewMovie = overview
         vc.moviePoster = imageVMovie.image!
@@ -102,7 +99,6 @@ class MovieViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        
         let rotationTransform = CATransform3DTranslate(CATransform3DIdentity, -500, 10, 0)
         cell.alpha = 0
         cell.layer.transform = rotationTransform
@@ -124,7 +120,6 @@ class MovieViewController: UIViewController, UITableViewDelegate, UITableViewDat
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar)  {
         searchBar.resignFirstResponder()
     }
-    
 }
 
 
