@@ -9,7 +9,7 @@
 import UIKit
 
 class DetailsVC: UIViewController {
-
+    
     @IBOutlet weak var movieImage: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var overviewLabel: UILabel!
@@ -20,8 +20,8 @@ class DetailsVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-            movieImage.image = moviePoster
-            titleLabel.text = titleMovie
-            overviewLabel.text = overviewMovie
+        movieImage.image = moviePoster
+        titleLabel.text = titleMovie
+        overviewLabel.text = overviewMovie
     }
 }
