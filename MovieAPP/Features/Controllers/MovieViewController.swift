@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import AFNetworking
+import Kingfisher
 
 class MovieViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
     
@@ -41,7 +41,9 @@ class MovieViewController: UIViewController, UITableViewDelegate, UITableViewDat
         )
         let task: URLSessionDataTask = session.dataTask(
             with: request,
-            completionHandler: { (dataOrNil, response, error) in
+            completionHandler: { (dataOrNil,
+                                  response,
+                                  error) in
                 if let data = dataOrNil {
                     if let dataDictionary = try! JSONSerialization.jsonObject(
                         with: data, options:[]) as? NSDictionary {
@@ -76,7 +78,9 @@ class MovieViewController: UIViewController, UITableViewDelegate, UITableViewDat
         cell.titleLabel.text = title
         cell.overviewLabel.text = "\(overview)"
         cell.voteLabel.text = "\(voteAverage)"
-        cell.movieImageView.setImageWith(imageUrl)
+        
+        let resource = ImageResource(downloadURL: imageUrl)
+        cell.movieImageView.kf.setImage(with: resource)
         
         return cell
     }
@@ -90,7 +94,8 @@ class MovieViewController: UIViewController, UITableViewDelegate, UITableViewDat
         let baseUrl = "http://image.tmdb.org/t/p/w500"
         let imageUrl = URL(string: baseUrl + imageMovie)!
         let imageVMovie : UIImageView = UIImageView()
-        imageVMovie.setImageWith(imageUrl)
+        let resource = ImageResource(downloadURL: imageUrl)
+        imageVMovie.kf.setImage(with: resource)
         vc.titleMovie = title
         vc.overviewMovie = overview
         vc.moviePoster = imageVMovie.image!

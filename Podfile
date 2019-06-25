@@ -17,5 +17,6 @@ target 'MovieAPP' do
     # Pods for testing
   end
 pod 'AFNetworking'
+pod 'Kingfisher'
 
 end

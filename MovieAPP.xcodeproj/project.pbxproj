@@ -126,7 +126,7 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		842CF5E222B1169300D4FE4D /* APP */ = {
+		842CF5E222B1169300D4FE4D /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
 				84ED61AB22B0588F00532600 /* AppDelegate.swift */,
@@ -134,7 +134,39 @@
 				84ED61D922B068B900532600 /* MovieCell.swift */,
 				842CF5E322B141B300D4FE4D /* DetailsVC.swift */,
 			);
-			path = APP;
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		84D1C86E22C2225A00177853 /* Features */ = {
+			isa = PBXGroup;
+			children = (
+				842CF5E222B1169300D4FE4D /* Controllers */,
+				84D1C87122C24F1A00177853 /* ViewModels */,
+				84D1C86F22C223D900177853 /* Models */,
+				84D1C87022C24EF600177853 /* DataSources */,
+			);
+			path = Features;
+			sourceTree = "<group>";
+		};
+		84D1C86F22C223D900177853 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		84D1C87022C24EF600177853 /* DataSources */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = DataSources;
+			sourceTree = "<group>";
+		};
+		84D1C87122C24F1A00177853 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 		84ED619F22B0588F00532600 = {
@@ -162,7 +194,7 @@
 		84ED61AA22B0588F00532600 /* MovieAPP */ = {
 			isa = PBXGroup;
 			children = (
-				842CF5E222B1169300D4FE4D /* APP */,
+				84D1C86E22C2225A00177853 /* Features */,
 				842CF5DF22B1162D00D4FE4D /* Extensions */,
 				84ED61AF22B0588F00532600 /* Main.storyboard */,
 				84ED61B222B0589100532600 /* Assets.xcassets */,
