@@ -10,7 +10,7 @@ import UIKit
 import Kingfisher
 
 class MovieViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
-    
+
     var movies: [NSDictionary] = []
     var moviesFilter : [NSDictionary] = []
     @IBOutlet weak var tableView: UITableView!
