@@ -15,7 +15,7 @@ class MovieViewModel: NSObject {
     public var title : String {
         if let array = arrayMovies, let title = array[index].title {
             return "\(title)"
-           
+            
         } else {
             return "Empty"
         }
@@ -47,11 +47,11 @@ class MovieViewModel: NSObject {
     }
     public var numberOfRows : Int {
         if let array = arrayMovies {
-             return array.count
+            return array.count
         } else {
-       return 0
+            return 0
+        }
     }
-}
     func getData (succes succed: @escaping (() -> ())) {
         MoviesDataSources.sharedMovies.getData(succes: { (arrayModels) in
             self.arrayMovies = arrayModels

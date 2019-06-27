@@ -27,18 +27,12 @@ public class MoviesDataSources: NSObject {
                     for result in results {
                         if let movie = MovieModel(JSON: result as [String : Any]) {
                             arrayTemp.append(movie)
-                            
-                            
                         }
                     }
                     succed (arrayTemp)
-                    
                 }
-                
-            } 
-            
+            }
         }
-        
     }
 }
 
