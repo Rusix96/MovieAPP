@@ -52,9 +52,6 @@ class MovieViewModel: NSObject {
        return 0
     }
 }
-    func searchFilter () {
-        
-    }
     func getData (succes succed: @escaping (() -> ())) {
         MoviesDataSources.sharedMovies.getData(succes: { (arrayModels) in
             self.arrayMovies = arrayModels

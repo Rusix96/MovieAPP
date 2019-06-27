@@ -23,10 +23,8 @@ class MovieViewController: UIViewController, UITableViewDelegate, UITableViewDat
         searchBar.delegate = self
         self.hideKeyboardWhenTappedAround()
         self.navigationController?.isNavigationBarHidden = true
-        viewModel.getData(succes: { ()
-            self.tableView.reloadData()
-        })
-        searchingFilter()
+        getData()
+    
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
@@ -85,14 +83,13 @@ class MovieViewController: UIViewController, UITableViewDelegate, UITableViewDat
             cell.alpha = 1.0
         }
     }
-    func searchingFilter () {
-        if searchBar.text!.isEmpty {
-            filteredViewModel.getData {
-                self.tableView.reloadData()
-            }
-        } else {
-            return
-        }
+    func getData () {
+        filteredViewModel.getData(succes: { ()
+            self.tableView.reloadData()
+        })
+        viewModel.getData(succes: { ()
+            self.tableView.reloadData()
+        })
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
