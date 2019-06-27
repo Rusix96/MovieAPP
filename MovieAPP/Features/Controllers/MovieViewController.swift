@@ -9,13 +9,10 @@
 import UIKit
 import Kingfisher
 
-var viewModel = MovieViewModel()
-var filteredViewModel = MovieViewModel()
-var search : String = "2"
-
 class MovieViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
     
-    
+    var viewModel = MovieViewModel()
+    var filteredViewModel = MovieViewModel()
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
     
@@ -67,7 +64,7 @@ class MovieViewController: UIViewController, UITableViewDelegate, UITableViewDat
         let imageVMovie : UIImageView = UIImageView()
         vc.titleMovie = filteredViewModel.title
         vc.overviewMovie = filteredViewModel.overview
-     
+        
         let resource = ImageResource(downloadURL: imageUrl)
         imageVMovie.kf.setImage(with: resource)
         if imageVMovie.image != nil {
@@ -89,8 +86,6 @@ class MovieViewController: UIViewController, UITableViewDelegate, UITableViewDat
         }
     }
     func searchingFilter () {
-        
-        
         if searchBar.text!.isEmpty {
             filteredViewModel.getData {
                 self.tableView.reloadData()
@@ -104,8 +99,6 @@ class MovieViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         filteredViewModel.arrayMovies = searchText.isEmpty ? viewModel.arrayMovies : viewModel.arrayMovies!.filter({ (movies : MovieModel) -> Bool in
             let title = movies.title!
-            search = searchBar.text!
-            
             
             return title.range(of: searchText, options: .caseInsensitive) != nil
         })
@@ -115,7 +108,6 @@ class MovieViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar)  {
         searchBar.resignFirstResponder()
-        
     }
 }
 
