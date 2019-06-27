@@ -16,7 +16,8 @@ target 'MovieAPP' do
     inherit! :search_paths
     # Pods for testing
   end
-pod 'AFNetworking'
+pod 'Alamofire'
 pod 'Kingfisher'
+pod 'ObjectMapper'
 
 end

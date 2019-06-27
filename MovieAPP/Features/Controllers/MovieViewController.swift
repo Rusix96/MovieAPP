@@ -9,57 +9,31 @@
 import UIKit
 import Kingfisher
 
-class MovieViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
+var viewModel = MovieViewModel()
+var filteredViewModel = MovieViewModel()
+var search : String = "2"
 
-    var movies: [NSDictionary] = []
-    var moviesFilter : [NSDictionary] = []
+class MovieViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
+    
+    
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.isNavigationBarHidden = true
         tableView.dataSource = self
         tableView.delegate = self
         searchBar.delegate = self
-        moviesFilter = movies
         self.hideKeyboardWhenTappedAround()
-        getMovies()
-    }
-    
-    func getMovies() {
-        let apiKey = "a07e22bc18f5cb106bfe4cc1f83ad8ed"
-        let url = URL(string: "https://api.themoviedb.org/3/movie/now_playing?api_key=\(apiKey)")
-        let request = URLRequest (
-            url: url!,
-            cachePolicy: URLRequest.CachePolicy.reloadIgnoringLocalCacheData,
-            timeoutInterval: 10)
-        let session = URLSession(
-            configuration: URLSessionConfiguration.default,
-            delegate: nil,
-            delegateQueue: OperationQueue.main
-        )
-        let task: URLSessionDataTask = session.dataTask(
-            with: request,
-            completionHandler: { (dataOrNil,
-                                  response,
-                                  error) in
-                if let data = dataOrNil {
-                    if let dataDictionary = try! JSONSerialization.jsonObject(
-                        with: data, options:[]) as? NSDictionary {
-                        print("response: \(dataDictionary)")
-                        self.movies = (dataDictionary["results"] as! [NSDictionary])
-                        self.moviesFilter = self.movies
-                        self.tableView.reloadData()
-                    }
-                }
+        self.navigationController?.isNavigationBarHidden = true
+        viewModel.getData(succes: { ()
+            self.tableView.reloadData()
         })
-        task.resume()
+        searchingFilter()
     }
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return moviesFilter.count
+        return filteredViewModel.numberOfRows
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -67,38 +41,40 @@ class MovieViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "MovieCell", for:  indexPath)  as! MovieCell
-        let movie = moviesFilter[indexPath.row]
-        let title = movie["title"] as! String
-        let overview = movie["overview"] as! String
-        let voteAverage = movie["vote_average"] as! NSNumber
-        let imageMovie = movie["poster_path"] as! String
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MovieCell", for:  indexPath) as! MovieCell
+        filteredViewModel.index = indexPath.row
+        
+        let imageMovie = filteredViewModel.portrait
         let baseUrl = "http://image.tmdb.org/t/p/w500"
         let imageUrl = URL(string: baseUrl + imageMovie)!
-        cell.titleLabel.text = title
-        cell.overviewLabel.text = "\(overview)"
-        cell.voteLabel.text = "\(voteAverage)"
-        
-        let resource = ImageResource(downloadURL: imageUrl)
-        cell.movieImageView.kf.setImage(with: resource)
+        cell.titleLabel.text = filteredViewModel.title
+        cell.overviewLabel.text = filteredViewModel.overview
+        cell.voteLabel.text = filteredViewModel.voteAverage
+        cell.movieImageView.kf.setImage(with: imageUrl)
         
         return cell
     }
     
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = storyboard?.instantiateViewController(withIdentifier: "detailMovie") as! DetailsVC
-        let movie = moviesFilter[indexPath.row]
-        let imageMovie = movie["poster_path"] as! String
-        let title = movie["title"] as! String
-        let overview = movie["overview"] as! String
+        
+        searchBar.text = ""
+        filteredViewModel.index = indexPath.row
+        let imageMovie = filteredViewModel.portrait
         let baseUrl = "http://image.tmdb.org/t/p/w500"
         let imageUrl = URL(string: baseUrl + imageMovie)!
         let imageVMovie : UIImageView = UIImageView()
+        vc.titleMovie = filteredViewModel.title
+        vc.overviewMovie = filteredViewModel.overview
+     
         let resource = ImageResource(downloadURL: imageUrl)
         imageVMovie.kf.setImage(with: resource)
-        vc.titleMovie = title
-        vc.overviewMovie = overview
-        vc.moviePoster = imageVMovie.image!
+        if imageVMovie.image != nil {
+            vc.moviePoster = imageVMovie.image!
+        } else {
+            return
+        }
         
         self.navigationController?.pushViewController(vc, animated: true)
     }
@@ -112,18 +88,34 @@ class MovieViewController: UIViewController, UITableViewDelegate, UITableViewDat
             cell.alpha = 1.0
         }
     }
+    func searchingFilter () {
+        
+        
+        if searchBar.text!.isEmpty {
+            filteredViewModel.getData {
+                self.tableView.reloadData()
+            }
+        } else {
+            return
+        }
+    }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        moviesFilter = searchText.isEmpty ? movies : movies.filter({(movie: NSDictionary) -> Bool in
-            let title = movie["title"] as! String
+        
+        filteredViewModel.arrayMovies = searchText.isEmpty ? viewModel.arrayMovies : viewModel.arrayMovies!.filter({ (movies : MovieModel) -> Bool in
+            let title = movies.title!
+            search = searchBar.text!
+            
             
             return title.range(of: searchText, options: .caseInsensitive) != nil
         })
+        
         tableView.reloadData()
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar)  {
         searchBar.resignFirstResponder()
+        
     }
 }
 
