@@ -7,15 +7,15 @@
 //
 
 import UIKit
+import Kingfisher
 
 class MovieViewModel: NSObject {
-    var arrayMovies : [MovieModel]?
-    var index : Int = 0
+    var arrayMovies: [MovieModel]?
+    var index = 0
     
     public var title : String {
         if let array = arrayMovies, let title = array[index].title {
             return "\(title)"
-            
         } else {
             return "Empty"
         }
@@ -40,7 +40,7 @@ class MovieViewModel: NSObject {
     
     public var portrait : String {
         if let array = arrayMovies, let portrait = array[index].posterPath {
-            return "\(portrait)"
+            return "\(baseImageUrl + portrait)"
         } else {
             return "Empty"
         }

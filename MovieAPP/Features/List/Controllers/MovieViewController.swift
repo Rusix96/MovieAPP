@@ -9,55 +9,70 @@
 import UIKit
 import Kingfisher
 
+let filteredViewModel = MovieViewModel()
 class MovieViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
     
-    var viewModel = MovieViewModel()
-    var filteredViewModel = MovieViewModel()
+    //TODO No es pot usar 2 instancies del mateix ViewModel en una mateixa vista
+    //FINISHED Estas utilitzant var enlloc de let en una variable que no canvia
+    //TODO Comentar tots els metodes custom
+    let viewModel = MovieViewModel()
+    
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
     
+    //FINISHED Dividir el codi per Data / UI / Delegates amb funcions
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureDelegates()
+        configureUI()
+        getData()
+    }
+    
+    //Place all the dataSources and delegates
+    func configureDelegates() {
         tableView.dataSource = self
         tableView.delegate = self
         searchBar.delegate = self
+    }
+    
+    //Add visual changes to UI
+    func configureUI() {
         self.hideKeyboardWhenTappedAround()
         self.navigationController?.isNavigationBarHidden = true
-        getData()
-    
     }
+    //Display the number of rows in tableview
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
         return filteredViewModel.numberOfRows
     }
     
+    // Cada cela s'ha d'adaptar automaticamnt per contraints
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 100
     }
-    
+    //Display data of tableView in cells
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MovieCell", for:  indexPath) as! MovieCell
         filteredViewModel.index = indexPath.row
         
-        let imageMovie = filteredViewModel.portrait
-        let baseUrl = "http://image.tmdb.org/t/p/w500"
-        let imageUrl = URL(string: baseUrl + imageMovie)!
-        cell.titleLabel.text = filteredViewModel.title
-        cell.overviewLabel.text = filteredViewModel.overview
-        cell.voteLabel.text = filteredViewModel.voteAverage
-        cell.movieImageView.kf.setImage(with: imageUrl)
+        cell.setProperties(titleLabel: filteredViewModel.title,
+                           overviewLabel: filteredViewModel.overview,
+                           voteLabel: filteredViewModel.voteAverage,
+                           movieImageUrl: filteredViewModel.portrait)
         
         return cell
     }
     
-    
+    //Display data when we select specific cell
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = storyboard?.instantiateViewController(withIdentifier: "detailMovie") as! DetailsVC
         
         searchBar.text = ""
         filteredViewModel.index = indexPath.row
-        let imageMovie = filteredViewModel.portrait
-        let baseUrl = "http://image.tmdb.org/t/p/w500"
+        
+        vc.setProperties(titleLabel: filteredViewModel.title,
+                         overviewLabel: filteredViewModel.overview,
+                         movieImageUrl: filteredViewModel.portrait)
+        /*let imageMovie = filteredViewModel.portrait
         let imageUrl = URL(string: baseUrl + imageMovie)!
         let imageVMovie : UIImageView = UIImageView()
         vc.titleMovie = filteredViewModel.title
@@ -70,19 +85,11 @@ class MovieViewController: UIViewController, UITableViewDelegate, UITableViewDat
         } else {
             return
         }
-        
+        */
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        let rotationTransform = CATransform3DTranslate(CATransform3DIdentity, -500, 10, 0)
-        cell.alpha = 0
-        cell.layer.transform = rotationTransform
-        UIView.animate(withDuration: 0.35) {
-            cell.layer.transform = CATransform3DIdentity
-            cell.alpha = 1.0
-        }
-    }
+    // Estas fent 2 crides simultanees que no saps si l'usuari les va a utilitzar
     func getData () {
         filteredViewModel.getData(succes: { ()
             self.tableView.reloadData()
@@ -93,13 +100,11 @@ class MovieViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        
         filteredViewModel.arrayMovies = searchText.isEmpty ? viewModel.arrayMovies : viewModel.arrayMovies!.filter({ (movies : MovieModel) -> Bool in
             let title = movies.title!
             
             return title.range(of: searchText, options: .caseInsensitive) != nil
         })
-        
         tableView.reloadData()
     }
     
