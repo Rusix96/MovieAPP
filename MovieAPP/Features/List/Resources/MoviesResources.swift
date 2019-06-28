@@ -9,9 +9,9 @@
 import UIKit
 import Alamofire
 
-public class MoviesDataSources: NSObject {
+public class MoviesResources: NSObject {
     
-    public static let sharedMovies = MoviesDataSources()
+    public static let sharedMovies = MoviesResources()
     
     func getData (succes succed: @escaping ( ([MovieModel]) -> ( ))) {
         
