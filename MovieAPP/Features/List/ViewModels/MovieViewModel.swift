@@ -57,7 +57,7 @@ class MovieViewModel: NSObject {
         
     }
     func getData (succes succed: @escaping (() -> ())) {
-        MoviesResources.sharedMovies.getData(succes: { (arrayModels) in
+        MoviesRepositories.sharedMovies.getData(succes: { (arrayModels) in
             self.arrayMovies = arrayModels
             succed()
         })

@@ -17,23 +17,28 @@ class DetailsVC: UIViewController {
     @IBOutlet private weak var overviewLabel: UILabel!
     
     // inicialitzador del viewmodel per rebre la informacio.
-    let viewModel = DetailsViewModel()
+    var detailViewModel: DetailsViewModel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        getData()
+        configureUI()
     }
     
-    func getData () {
-        viewModel.getData(succes: { ()
-        })
-    }
-    func setProperties(titleLabel: String,overviewLabel: String, movieImageUrl: String) {
-        self.titleLabel.text = titleLabel
-        self.overviewLabel.text = overviewLabel
-        if let imageURL = URL(string: movieImageUrl) {
-            self.movieImage.kf.setImage(with: imageURL)
+    func configureUI() {
+        if let viewModel = detailViewModel {
+            self.titleLabel.text = viewModel.title
+            self.overviewLabel.text = viewModel.overview
+            let imageMovie = viewModel.portrait
+            let imageUrl = URL(string: imageMovie)!
+            self.movieImage.kf.setImage(with: imageUrl)
+            
+
         }
     }
     
+    @IBAction func backButtonPushed(_ sender: UIButton) {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+
 }

@@ -17,7 +17,6 @@ class MovieViewController: UIViewController, UITableViewDelegate, UITableViewDat
     //TODO Comentar tots els metodes custom
     let viewModel = MovieViewModel()
     let filteredViewModel = MovieViewModel()
-    let detailViewModel = DetailsViewModel()
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
@@ -66,15 +65,18 @@ class MovieViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     //Display data when we select specific cell
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let vc = storyboard?.instantiateViewController(withIdentifier: "detailMovie") as! DetailsVC
+        let detailViewController = storyboard?.instantiateViewController(withIdentifier: "detailMovie") as! DetailsVC
         
         searchBar.text = ""
-        detailViewModel.index = indexPath.row
+        filteredViewModel.index = indexPath.row
+
+        let detailViewModel = DetailsViewModel(title: filteredViewModel.title,
+                                               overview: filteredViewModel.overview,
+                                               portrait: filteredViewModel.portrait)
         
-        vc.setProperties(titleLabel: detailViewModel.title,
-                         overviewLabel: detailViewModel.overview,
-                         movieImageUrl: detailViewModel.portrait)
-        self.navigationController?.pushViewController(vc, animated: true)
+        detailViewController.detailViewModel = detailViewModel
+
+        self.navigationController?.pushViewController(detailViewController, animated: true)
     }
     
     // Estas fent 2 crides simultanees que no saps si l'usuari les va a utilitzar

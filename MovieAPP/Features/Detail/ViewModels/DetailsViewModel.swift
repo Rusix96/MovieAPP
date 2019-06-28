@@ -7,44 +7,25 @@
 //
 
 import Foundation
+import UIKit
+import Kingfisher
 
 class DetailsViewModel: NSObject {
-    var arrayMovies: [MovieModel]?
-    var index: Int = 0 //Always it's better to put what type of var is (Like Int...)
     
-   // override init() {
-     //   setProperties(titleLabel: detailViewModel.title,
-       //               overviewLabel: detailViewModel.overview,
-         //             movieImageUrl: detailViewModel.portrait)
-    //}
+    public var title : String
+    public var overview : String
+    public var portrait : String
     
-    public var title : String {
-        if let array = arrayMovies, let title = array[index].title {
-            return "\(title)"
-        } else {
-            return "Empty"
-        }
-    }
-    public var overview : String {
-        if let array = arrayMovies, let overview = array[index].overview {
-            return "\(overview)"
-        } else {
-            return "Empty"
-        }
+    init(title: String, overview: String, portrait: String) {
+        self.title = title
+        self.overview = overview
+        self.portrait = portrait
     }
     
-    public var portrait : String {
-        if let array = arrayMovies, let portrait = array[index].posterPath {
-            return "\(baseImageUrl + portrait)"
-        } else {
-            return "Empty"
-        }
-    }
-    func getData (succes succed: @escaping (() -> ())) {
-        MoviesResources.sharedMovies.getData(succes: { (arrayModels) in
-            self.arrayMovies = arrayModels
-            succed()
-        })
+    override init() {
+        self.title = ""
+        self.overview = ""
+        self.portrait = ""
     }
     
     
