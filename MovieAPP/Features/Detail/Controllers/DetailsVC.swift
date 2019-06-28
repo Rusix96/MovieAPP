@@ -17,8 +17,16 @@ class DetailsVC: UIViewController {
     @IBOutlet private weak var overviewLabel: UILabel!
     
     // inicialitzador del viewmodel per rebre la informacio.
+    let viewModel = DetailsViewModel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        getData()
+    }
+    
+    func getData () {
+        viewModel.getData(succes: { ()
+        })
     }
     func setProperties(titleLabel: String,overviewLabel: String, movieImageUrl: String) {
         self.titleLabel.text = titleLabel
@@ -27,4 +35,5 @@ class DetailsVC: UIViewController {
             self.movieImage.kf.setImage(with: imageURL)
         }
     }
+    
 }

@@ -9,13 +9,15 @@
 import UIKit
 import Kingfisher
 
-let filteredViewModel = MovieViewModel()
+
 class MovieViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
     
     //TODO No es pot usar 2 instancies del mateix ViewModel en una mateixa vista
     //FINISHED Estas utilitzant var enlloc de let en una variable que no canvia
     //TODO Comentar tots els metodes custom
     let viewModel = MovieViewModel()
+    let filteredViewModel = MovieViewModel()
+    let detailViewModel = DetailsViewModel()
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
@@ -67,25 +69,11 @@ class MovieViewController: UIViewController, UITableViewDelegate, UITableViewDat
         let vc = storyboard?.instantiateViewController(withIdentifier: "detailMovie") as! DetailsVC
         
         searchBar.text = ""
-        filteredViewModel.index = indexPath.row
+        detailViewModel.index = indexPath.row
         
-        vc.setProperties(titleLabel: filteredViewModel.title,
-                         overviewLabel: filteredViewModel.overview,
-                         movieImageUrl: filteredViewModel.portrait)
-        /*let imageMovie = filteredViewModel.portrait
-        let imageUrl = URL(string: baseUrl + imageMovie)!
-        let imageVMovie : UIImageView = UIImageView()
-        vc.titleMovie = filteredViewModel.title
-        vc.overviewMovie = filteredViewModel.overview
-        
-        let resource = ImageResource(downloadURL: imageUrl)
-        imageVMovie.kf.setImage(with: resource)
-        if imageVMovie.image != nil {
-            vc.moviePoster = imageVMovie.image!
-        } else {
-            return
-        }
-        */
+        vc.setProperties(titleLabel: detailViewModel.title,
+                         overviewLabel: detailViewModel.overview,
+                         movieImageUrl: detailViewModel.portrait)
         self.navigationController?.pushViewController(vc, animated: true)
     }
     

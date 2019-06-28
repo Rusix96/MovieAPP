@@ -11,7 +11,7 @@ import Kingfisher
 
 class MovieViewModel: NSObject {
     var arrayMovies: [MovieModel]?
-    var index = 0
+    var index: Int = 0
     
     public var title : String {
         if let array = arrayMovies, let title = array[index].title {
@@ -52,8 +52,12 @@ class MovieViewModel: NSObject {
             return 0
         }
     }
+    //FUNCION QUE PUEDA FILTRAR
+    func filterMovies () {
+        
+    }
     func getData (succes succed: @escaping (() -> ())) {
-        MoviesDataSources.sharedMovies.getData(succes: { (arrayModels) in
+        MoviesResources.sharedMovies.getData(succes: { (arrayModels) in
             self.arrayMovies = arrayModels
             succed()
         })
