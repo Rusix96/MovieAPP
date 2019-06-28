@@ -140,6 +140,7 @@
 		7FE21AF422C6202A006CE85B /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				84ED61B722B0589100532600 /* Info.plist */,
 				84ED61AB22B0588F00532600 /* AppDelegate.swift */,
 			);
 			path = "Supporting Files";
@@ -283,7 +284,6 @@
 				84D1C86E22C2225A00177853 /* Features */,
 				7FE21AF322C61FA2006CE85B /* Views */,
 				7FE21AF422C6202A006CE85B /* Supporting Files */,
-				84ED61B722B0589100532600 /* Info.plist */,
 				842CF5DF22B1162D00D4FE4D /* Extensions */,
 				84070A2422C4FAB900EB0AFF /* Library */,
 				84ED61B222B0589100532600 /* Assets.xcassets */,
@@ -717,7 +717,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = VB4HUU9MDB;
-				INFOPLIST_FILE = MovieAPP/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/MovieAPP/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -736,7 +736,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = VB4HUU9MDB;
-				INFOPLIST_FILE = MovieAPP/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/MovieAPP/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
