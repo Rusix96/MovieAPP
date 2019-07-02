@@ -24,6 +24,7 @@ class DetailsVC: UIViewController {
         configureUI()
     }
     
+    ///Add visual changes to UI
     func configureUI() {
         if let viewModel = detailViewModel {
             self.titleLabel.text = viewModel.title
@@ -31,11 +32,12 @@ class DetailsVC: UIViewController {
             let imageMovie = viewModel.portrait
             let imageUrl = URL(string: imageMovie)!
             self.movieImage.kf.setImage(with: imageUrl)
-            
-
         }
     }
     
+    /// Go back to MovieViewController
+    ///
+    /// - Parameter sender: UIButton
     @IBAction func backButtonPushed(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
     }

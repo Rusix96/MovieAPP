@@ -13,6 +13,9 @@ public class MoviesRepositories: NSObject {
     
     public static let sharedMovies = MoviesRepositories()
     
+    /// Obtain data of movies using url and save it into array.
+    ///
+    /// - Parameter succed: Update object MovieModel
     func getData (succes succed: @escaping ( ([MovieModel]) -> ( ))) {
         
         Alamofire.request(finalUrl).responseJSON {

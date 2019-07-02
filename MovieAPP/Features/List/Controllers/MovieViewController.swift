@@ -15,6 +15,7 @@ class MovieViewController: UIViewController  {
     //TODO No es pot usar 2 instancies del mateix ViewModel en una mateixa vista
     //FINISHED Estas utilitzant var enlloc de let en una variable que no canvia
     //TODO Comentar tots els metodes custom
+    
     let viewModel = MovieViewModel()
     let filteredViewModel = MovieViewModel()
     
@@ -28,15 +29,13 @@ class MovieViewController: UIViewController  {
         configureUI()
         getData()
     }
-    
-    //Place all the dataSources and delegates
+    ///Place all the dataSources and delegates
     func configureDelegates() {
         tableView.dataSource = self
         tableView.delegate = self
         searchBar.delegate = self
     }
-    
-    //Add visual changes to UI
+    /// Add visual changes to UI
     func configureUI() {
         self.hideKeyboardWhenTappedAround()
         self.navigationController?.isNavigationBarHidden = true
@@ -52,10 +51,14 @@ class MovieViewController: UIViewController  {
         })
     }
 }
+
+// MARK: - UITableViewDelegate
 extension MovieViewController: UITableViewDelegate {
 }
+
+// MARK: - UITableViewDataSource
 extension MovieViewController: UITableViewDataSource {
-    //Display the number of rows in tableview
+    ///Display the number of rows in tableview
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return filteredViewModel.numberOfRows
     }
@@ -65,7 +68,13 @@ extension MovieViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 100
     }
-    //Display data of tableView in cells
+    
+    /// Display data of tableView in cells
+    ///
+    /// - Parameters:
+    ///   - tableView: Represent our tableview
+    ///   - indexPath: Represent the path to a specific location in a tree of nested arrays.
+    /// - Returns: cell with information
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MovieCell", for:  indexPath) as! MovieCell
         filteredViewModel.index = indexPath.row
@@ -78,7 +87,12 @@ extension MovieViewController: UITableViewDataSource {
         return cell
     }
     
-    //Display data when we select specific cell
+    
+    /// Display data when we select specific cell
+    ///
+    /// - Parameters:
+    ///   - tableView: Represent our tableview
+    ///   - indexPath: Represent the path to a specific location in a tree of nested arrays.
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let detailViewController = storyboard?.instantiateViewController(withIdentifier: "detailMovie") as! DetailsVC
         
@@ -95,7 +109,15 @@ extension MovieViewController: UITableViewDataSource {
     }
     
 }
+
+// MARK: - UISearchBarDelegate
 extension MovieViewController: UISearchBarDelegate {
+    
+    /// Filter movies by user interaction with searchbar and keyboard.
+    ///
+    /// - Parameters:
+    ///   - searchBar: Searchbar used by user for searching.
+    ///   - searchText: Text placed by user.
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         filteredViewModel.arrayMovies = searchText.isEmpty ? viewModel.arrayMovies : viewModel.arrayMovies!.filter({ (movies : MovieModel) -> Bool in
             let title = movies.title!
@@ -105,6 +127,9 @@ extension MovieViewController: UISearchBarDelegate {
         tableView.reloadData()
     }
     
+    /// Toggle keyboard when user touch searchbar.
+    ///
+    /// - Parameter searchBar: Searchbar used by user for searching.
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar)  {
         searchBar.resignFirstResponder()
     }

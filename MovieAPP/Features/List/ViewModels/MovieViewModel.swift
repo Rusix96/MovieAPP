@@ -56,6 +56,10 @@ class MovieViewModel: NSObject {
     func filterMovies () {
         
     }
+    
+    /// Obtain the data of movies
+    ///
+    /// - Parameter succed: Asign data of movies to array
     func getData (succes succed: @escaping (() -> ())) {
         MoviesRepositories.sharedMovies.getData(succes: { (arrayModels) in
             self.arrayMovies = arrayModels
