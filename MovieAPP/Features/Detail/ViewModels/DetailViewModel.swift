@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import Kingfisher
 
-class DetailsViewModel: NSObject {
+class DetailViewModel: NSObject {
     
     public var title : String
     public var overview : String

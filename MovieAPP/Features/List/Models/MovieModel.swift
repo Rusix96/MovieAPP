@@ -8,6 +8,8 @@
 import Foundation
 import ObjectMapper
 
+//TODO:  Usar Coddables
+
 public final class MovieModel: Mappable, NSCoding {
 
   // MARK: Declaration for string constants to be used to decode and also serialize.

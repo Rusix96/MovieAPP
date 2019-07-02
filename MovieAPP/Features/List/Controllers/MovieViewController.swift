@@ -10,7 +10,7 @@ import UIKit
 import Kingfisher
 
 
-class MovieViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
+class MovieViewController: UIViewController  {
     
     //TODO No es pot usar 2 instancies del mateix ViewModel en una mateixa vista
     //FINISHED Estas utilitzant var enlloc de let en una variable que no canvia
@@ -41,12 +41,27 @@ class MovieViewController: UIViewController, UITableViewDelegate, UITableViewDat
         self.hideKeyboardWhenTappedAround()
         self.navigationController?.isNavigationBarHidden = true
     }
+   
+    //TODO:  Estas fent 2 crides simultanees que no saps si l'usuari les va a utilitzar
+    func getData () {
+        filteredViewModel.getData(succes: { ()
+            self.tableView.reloadData()
+        })
+        viewModel.getData(succes: { ()
+            self.tableView.reloadData()
+        })
+    }
+}
+extension MovieViewController: UITableViewDelegate {
+}
+extension MovieViewController: UITableViewDataSource {
     //Display the number of rows in tableview
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return filteredViewModel.numberOfRows
     }
     
-    // Cada cela s'ha d'adaptar automaticamnt per contraints
+    
+    //TODO:  Cada cela s'ha d'adaptar automaticamnt per contraints
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 100
     }
@@ -69,26 +84,18 @@ class MovieViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         searchBar.text = ""
         filteredViewModel.index = indexPath.row
-
-        let detailViewModel = DetailsViewModel(title: filteredViewModel.title,
-                                               overview: filteredViewModel.overview,
-                                               portrait: filteredViewModel.portrait)
+        
+        let detailViewModel = DetailViewModel(title: filteredViewModel.title,
+                                              overview: filteredViewModel.overview,
+                                              portrait: filteredViewModel.portrait)
         
         detailViewController.detailViewModel = detailViewModel
-
+        
         self.navigationController?.pushViewController(detailViewController, animated: true)
     }
     
-    // Estas fent 2 crides simultanees que no saps si l'usuari les va a utilitzar
-    func getData () {
-        filteredViewModel.getData(succes: { ()
-            self.tableView.reloadData()
-        })
-        viewModel.getData(succes: { ()
-            self.tableView.reloadData()
-        })
-    }
-    
+}
+extension MovieViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         filteredViewModel.arrayMovies = searchText.isEmpty ? viewModel.arrayMovies : viewModel.arrayMovies!.filter({ (movies : MovieModel) -> Bool in
             let title = movies.title!
@@ -102,5 +109,3 @@ class MovieViewController: UIViewController, UITableViewDelegate, UITableViewDat
         searchBar.resignFirstResponder()
     }
 }
-
-

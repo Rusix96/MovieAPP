@@ -17,7 +17,7 @@ class DetailsVC: UIViewController {
     @IBOutlet private weak var overviewLabel: UILabel!
     
     // inicialitzador del viewmodel per rebre la informacio.
-    var detailViewModel: DetailsViewModel?
+    var detailViewModel: DetailViewModel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
