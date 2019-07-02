@@ -119,7 +119,7 @@ extension MovieViewController: UISearchBarDelegate {
     ///   - searchBar: Searchbar used by user for searching.
     ///   - searchText: Text placed by user.
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        filteredViewModel.arrayMovies = searchText.isEmpty ? viewModel.arrayMovies : viewModel.arrayMovies!.filter({ (movies : MovieModel) -> Bool in
+        filteredViewModel.arrayMovies = searchText.isEmpty ? viewModel.arrayMovies : viewModel.arrayMovies!.filter({ (movies : MovieModel1) -> Bool in
             let title = movies.title!
             
             return title.range(of: searchText, options: .caseInsensitive) != nil
@@ -134,3 +134,4 @@ extension MovieViewController: UISearchBarDelegate {
         searchBar.resignFirstResponder()
     }
 }
+

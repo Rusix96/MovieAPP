@@ -10,7 +10,7 @@ import UIKit
 import Kingfisher
 
 class MovieViewModel: NSObject {
-    var arrayMovies: [MovieModel]?
+    var arrayMovies: [MovieModel1]?
     var index: Int = 0
     
     public var title : String {
