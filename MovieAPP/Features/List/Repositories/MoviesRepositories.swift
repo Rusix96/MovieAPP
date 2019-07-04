@@ -15,7 +15,7 @@ public class MoviesRepositories: NSObject {
     
     /// Obtain data of movies using URL, decode the JSON and save it into array.
     ///
-    /// - Parameter succed: Update object MovieModel
+    /// - Parameter succed: Update object Results
     func parseData (succes succed: @escaping ( ([Results]?, Error?) -> ( ))) {
         guard let movieURL = URL(string: finalUrl) else {
             return
