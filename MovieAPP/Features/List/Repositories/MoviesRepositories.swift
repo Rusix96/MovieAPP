@@ -36,10 +36,9 @@ public class MoviesRepositories: NSObject {
                     print(error.localizedDescription)
                 }
             } else {
-                
                 return
             }
             
-            }.resume()
+        }.resume()
     }
 }
