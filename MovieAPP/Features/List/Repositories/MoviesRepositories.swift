@@ -16,23 +16,31 @@ public class MoviesRepositories: NSObject {
         guard let movieURL = URL(string: finalUrl) else {
             return
         }
-        URLSession.shared.dataTask(with: movieURL) { (data, response, error) in
-            if let data = data {
-                do {
-                    var arrayMov = [Results]()
-                    let results = try JSONDecoder().decode(MovieModel.self, from: data)
-                    for movie in results.results {
-                        arrayMov.append(movie)
+        DispatchQueue.global(qos: .background).async {
+            URLSession.shared.dataTask(with: movieURL) { (data, response, error) in
+                if let data = data {
+                    do {
+                        var arrayMov = [Results]()
+                        let results = try JSONDecoder().decode(MovieModel.self, from: data)
+                        for movie in results.results {
+                            arrayMov.append(movie)
+                        }
+                        DispatchQueue.main.async {
+                            succed(arrayMov, error)
+                        }
+                        
+                    } catch let error {
+                        DispatchQueue.main.async {
+                            print(error.localizedDescription)
+                        }
                     }
+                } else {
                     DispatchQueue.main.async {
-                        succed(arrayMov, error)
+                    return
                     }
-                } catch let error {
-                    print(error.localizedDescription)
                 }
-            } else {
-                return
-            }
-            }.resume()
+                }.resume()
+        }
+        
     }
 }
