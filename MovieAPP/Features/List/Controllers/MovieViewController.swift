@@ -40,13 +40,13 @@ class MovieViewController: UIViewController  {
         self.hideKeyboardWhenTappedAround()
         self.navigationController?.isNavigationBarHidden = true
     }
-   
+    
     //TODO:  Estas fent 2 crides simultanees que no saps si l'usuari les va a utilitzar
     func getData () {
-            self.filteredViewModel.getData(succes: { ()
-                    self.tableView.reloadData()
-            })
-            self.viewModel.getData(succes: { ()
+        self.filteredViewModel.getData(succes: { ()
+            self.tableView.reloadData()
+        })
+        self.viewModel.getData(succes: { ()
             self.tableView.reloadData()
         })
     }
@@ -119,11 +119,11 @@ extension MovieViewController: UISearchBarDelegate {
     ///   - searchText: Text placed by user.
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         //filteredViewModel.arrayMovies = searchText.isEmpty ? viewModel.arrayMovies : viewModel.arrayMovies!.filter({ (movies : Results) -> Bool in
-           // for titles in movies.title! {
-            //let title = titles
-            //}
-            //return title!.range(of: searchText, options: .caseInsensitive) != nil
-       // })
+        // for titles in movies.title! {
+        //let title = titles
+        //}
+        //return title!.range(of: searchText, options: .caseInsensitive) != nil
+        // })
         tableView.reloadData()
     }
     

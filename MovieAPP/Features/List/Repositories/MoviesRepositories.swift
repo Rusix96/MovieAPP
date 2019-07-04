@@ -20,7 +20,7 @@ public class MoviesRepositories: NSObject {
         guard let movieURL = URL(string: finalUrl) else {
             return
         }
-       
+        
         URLSession.shared.dataTask(with: movieURL) { (data, response, error) in
             if let data = data {
                 do {
@@ -29,8 +29,8 @@ public class MoviesRepositories: NSObject {
                     for movie in results.results {
                         arrayMov.append(movie)
                     }
-                     DispatchQueue.main.async {
-                    succed(arrayMov, error)
+                    DispatchQueue.main.async {
+                        succed(arrayMov, error)
                     }
                 } catch let error {
                     print(error.localizedDescription)
@@ -41,5 +41,5 @@ public class MoviesRepositories: NSObject {
             }
             
             }.resume()
-        }
     }
+}

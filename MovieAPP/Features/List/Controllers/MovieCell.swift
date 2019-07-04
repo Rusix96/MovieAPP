@@ -16,7 +16,7 @@ class MovieCell: UITableViewCell {
     @IBOutlet weak private var voteLabel: UILabel!
     @IBOutlet weak private var movieImageView: UIImageView!
     
-     // CMD + Alt + Shift + 7
+    // CMD + Alt + Shift + 7
     /// Create a constructor, we use it for create movie objects
     ///
     /// - Parameters:

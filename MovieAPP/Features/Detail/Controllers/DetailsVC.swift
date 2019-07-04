@@ -42,5 +42,5 @@ class DetailsVC: UIViewController {
         self.navigationController?.popViewController(animated: true)
     }
     
-
+    
 }
