@@ -36,7 +36,7 @@ public class MoviesRepositories: NSObject {
                     }
                 } else {
                     DispatchQueue.main.async {
-                    return
+                        return
                     }
                 }
                 }.resume()
