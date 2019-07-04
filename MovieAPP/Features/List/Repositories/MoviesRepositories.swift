@@ -4,13 +4,11 @@
 //
 //  Created by Rusik on 25/06/2019.
 //  Copyright © 2019 Rusik. All rights reserved.
-//
 import Alamofire
 
 public class MoviesRepositories: NSObject {
     
     public static let sharedMovies = MoviesRepositories()
-    
     /// Obtain data of movies using URL, decode the JSON and save it into array.
     ///
     /// - Parameter succed: Update object Results
