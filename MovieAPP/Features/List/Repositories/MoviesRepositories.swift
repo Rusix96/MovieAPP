@@ -20,7 +20,6 @@ public class MoviesRepositories: NSObject {
         guard let movieURL = URL(string: finalUrl) else {
             return
         }
-        
         URLSession.shared.dataTask(with: movieURL) { (data, response, error) in
             if let data = data {
                 do {
