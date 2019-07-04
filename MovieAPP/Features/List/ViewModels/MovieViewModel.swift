@@ -10,10 +10,10 @@ import UIKit
 import Kingfisher
 
 class MovieViewModel: NSObject {
-    var arrayMovies: [MovieModel1]?
+    var arrayMovies: [Results]?
     var index: Int = 0
     
-    public var title : String {
+    public var title : String { 
         if let array = arrayMovies, let title = array[index].title {
             return "\(title)"
         } else {
@@ -61,9 +61,15 @@ class MovieViewModel: NSObject {
     ///
     /// - Parameter succed: Asign data of movies to array
     func getData (succes succed: @escaping (() -> ())) {
-        MoviesRepositories.sharedMovies.getData(succes: { (arrayModels) in
-            self.arrayMovies = arrayModels
-            succed()
-        })
+        DispatchQueue.main.async {
+            MoviesRepositories.sharedMovies.parseData(succes: { (arrayMov, error) in
+                if error == nil {
+                    self.arrayMovies = arrayMov
+                    succed()
+                }
+                
+            })
+        }
+        
     }
 }

@@ -16,24 +16,30 @@ public class MoviesRepositories: NSObject {
     /// Obtain data of movies using url and save it into array.
     ///
     /// - Parameter succed: Update object MovieModel
-    func getData (succes succed: @escaping ( ([MovieModel1]) -> ( ))) {
-        
-        Alamofire.request(finalUrl).responseJSON {
-            response in
-            
-            if let json = response.result.value as? [String : Any?] {
-                if let results = json ["results"] as? [[String : Any?]] {
-                    var arrayTemp = [MovieModel1]()
-                    
-                    for result in results {
-                        if let movie = MovieModel1(JSON: result as [String : Any]) {
-                            arrayTemp.append(movie)
-                        }
+    func parseData (succes succed: @escaping ( ([Results]?, Error?) -> ( ))) {
+        guard let movieURL = URL(string: finalUrl) else {
+            return
+        }
+        DispatchQueue.main.async {
+        URLSession.shared.dataTask(with: movieURL) { (data, response, error) in
+            if let data = data {
+                do {
+                    var arrayMov = [Results]()
+                    let results = try JSONDecoder().decode(MovieModel.self, from: data)
+                    for movie in results.results {
+                        arrayMov.append(movie)
                     }
-                    succed (arrayTemp)
+                    succed(arrayMov, error)
+                    
+                } catch let error {
+                    print(error.localizedDescription)
                 }
+            } else {
+                
+                return
             }
+            
+            }.resume()
         }
     }
 }
-

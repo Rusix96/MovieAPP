@@ -8,7 +8,22 @@
 
 import Foundation
 
-struct MovieMode: Codable {
+struct MovieModel: Codable {
+    let page: Int?
+    let total_results: Int?
+    let total_pages: Int?
+    let results: [Results]
+    
+    private enum CodingKeys: String, CodingKey {
+        case page = "page"
+        case total_results = "total_results"
+        case total_pages = "total_pages"
+        case results = "results"
+        
+    }
+}
+
+struct Results: Codable {
     let posterPath: String?
     let backdropPath: String?
     let genreIds: [Int]?
@@ -24,7 +39,7 @@ struct MovieMode: Codable {
     let title: String?
     var adult: Bool? = false
     
-    enum CodingKeys: String, CodingKey {
+    private enum CodingKeys: String, CodingKey {
         case posterPath = "poster_path"
         case backdropPath = "backdrop_path"
         case genreIds = "genre_ids"
@@ -41,3 +56,5 @@ struct MovieMode: Codable {
         case adult = "adult"
     }
 }
+
+

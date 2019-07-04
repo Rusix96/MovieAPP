@@ -43,11 +43,15 @@ class MovieViewController: UIViewController  {
    
     //TODO:  Estas fent 2 crides simultanees que no saps si l'usuari les va a utilitzar
     func getData () {
-        filteredViewModel.getData(succes: { ()
+            self.filteredViewModel.getData(succes: { ()
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+            })
+            self.viewModel.getData(succes: { ()
+            DispatchQueue.main.async {
             self.tableView.reloadData()
-        })
-        viewModel.getData(succes: { ()
-            self.tableView.reloadData()
+            }
         })
     }
 }
@@ -87,7 +91,6 @@ extension MovieViewController: UITableViewDataSource {
         return cell
     }
     
-    
     /// Display data when we select specific cell
     ///
     /// - Parameters:
@@ -119,11 +122,12 @@ extension MovieViewController: UISearchBarDelegate {
     ///   - searchBar: Searchbar used by user for searching.
     ///   - searchText: Text placed by user.
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        filteredViewModel.arrayMovies = searchText.isEmpty ? viewModel.arrayMovies : viewModel.arrayMovies!.filter({ (movies : MovieModel1) -> Bool in
-            let title = movies.title!
-            
-            return title.range(of: searchText, options: .caseInsensitive) != nil
-        })
+        //filteredViewModel.arrayMovies = searchText.isEmpty ? viewModel.arrayMovies : viewModel.arrayMovies!.filter({ (movies : Results) -> Bool in
+           // for titles in movies.title! {
+            //let title = titles
+            //}
+            //return title!.range(of: searchText, options: .caseInsensitive) != nil
+       // })
         tableView.reloadData()
     }
     
