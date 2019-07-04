@@ -5,8 +5,6 @@
 //  Created by Rusik on 25/06/2019.
 //  Copyright © 2019 Rusik. All rights reserved.
 //
-
-import UIKit
 import Alamofire
 
 public class MoviesRepositories: NSObject {
