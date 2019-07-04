@@ -13,7 +13,7 @@ public class MoviesRepositories: NSObject {
     
     public static let sharedMovies = MoviesRepositories()
     
-    /// Obtain data of movies using url and save it into array.
+    /// Obtain data of movies using URL and save it into array.
     ///
     /// - Parameter succed: Update object MovieModel
     func parseData (succes succed: @escaping ( ([Results]?, Error?) -> ( ))) {

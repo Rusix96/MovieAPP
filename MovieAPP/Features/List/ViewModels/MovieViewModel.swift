@@ -67,9 +67,7 @@ class MovieViewModel: NSObject {
                     self.arrayMovies = arrayMov
                     succed()
                 }
-                
             })
         }
-        
     }
 }
