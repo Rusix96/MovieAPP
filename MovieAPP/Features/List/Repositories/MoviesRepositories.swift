@@ -37,7 +37,6 @@ public class MoviesRepositories: NSObject {
             } else {
                 return
             }
-            
-        }.resume()
+            }.resume()
     }
 }
