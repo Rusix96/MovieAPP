@@ -61,13 +61,11 @@ class MovieViewModel: NSObject {
     ///
     /// - Parameter succed: Asign data of movies to array
     func getData (succes succed: @escaping (() -> ())) {
-        DispatchQueue.main.async {
             MoviesRepositories.sharedMovies.parseData(succes: { (arrayMov, error) in
                 if error == nil {
                     self.arrayMovies = arrayMov
                     succed()
-                }
-            })
-        }
+            }
+        })
     }
 }

@@ -44,14 +44,10 @@ class MovieViewController: UIViewController  {
     //TODO:  Estas fent 2 crides simultanees que no saps si l'usuari les va a utilitzar
     func getData () {
             self.filteredViewModel.getData(succes: { ()
-                DispatchQueue.main.async {
                     self.tableView.reloadData()
-                }
             })
             self.viewModel.getData(succes: { ()
-            DispatchQueue.main.async {
             self.tableView.reloadData()
-            }
         })
     }
 }
