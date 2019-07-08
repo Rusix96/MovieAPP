@@ -13,7 +13,7 @@
         <!--Movie View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="MovieViewController" customModule="MovieAPP" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MoviesVC" id="BYZ-38-t0r" customClass="MovieViewController" customModule="MovieAPP" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -124,7 +124,6 @@
         <!--DetailsVC-->
         <scene sceneID="z1n-ZK-a5j">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="XnM-qA-hBF" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="detailMovie" id="QzE-7h-2hN" customClass="DetailsVC" customModule="MovieAPP" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="kJ3-9Z-nhU">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="1000"/>
@@ -199,6 +198,7 @@
                         <outlet property="titleLabel" destination="JoQ-nv-eb7" id="RLK-Re-3Nd"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XnM-qA-hBF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1984.8" y="156.65024630541873"/>
         </scene>

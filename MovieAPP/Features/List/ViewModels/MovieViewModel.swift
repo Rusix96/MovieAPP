@@ -53,19 +53,30 @@ class MovieViewModel: NSObject {
         }
     }
     //FUNCION QUE PUEDA FILTRAR
-    func filterMovies () {
-        
+    func filterMovies (text: String, completionHandler: @escaping (() -> ()), throwError: @escaping ((Error) -> ())) {
+        MoviesRepositories.sharedMovies.filterData(texto: text) { (arrayMov, error) in
+            if error != nil {
+                throwError(error!)
+                
+            } else {
+                self.arrayMovies = arrayMov
+               completionHandler()
+            }
+        }
     }
+    
     
     /// Obtain the data of movies
     ///
     /// - Parameter succed: Asign data of movies to array
-    func getData (succes succed: @escaping (() -> ())) {
-            MoviesRepositories.sharedMovies.parseData(succes: { (arrayMov, error) in
-                if error == nil {
-                    self.arrayMovies = arrayMov
-                    succed()
+    func getData (completionHandler: @escaping (() -> ()) ) {
+        MoviesRepositories.sharedMovies.parseData { (arrayMov, error) in
+            if error != nil {
+            error?.localizedDescription
+            } else {
+                self.arrayMovies = arrayMov
+                completionHandler()
             }
-        })
+        }
     }
 }

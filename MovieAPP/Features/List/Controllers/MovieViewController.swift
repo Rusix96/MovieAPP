@@ -14,8 +14,7 @@ class MovieViewController: UIViewController  {
     
     //TODO No es pot usar 2 instancies del mateix ViewModel en una mateixa vista
     //FINISHED Estas utilitzant var enlloc de let en una variable que no canvia
-    //TODO Comentar tots els metodes custom
-    
+    //FINISHED Comentar tots els metodes custom
     let viewModel = MovieViewModel()
     let filteredViewModel = MovieViewModel()
     
@@ -28,7 +27,10 @@ class MovieViewController: UIViewController  {
         configureDelegates()
         configureUI()
         getData()
+        hideKeyboardWhenTappedAround()
+        
     }
+   
     ///Place all the dataSources and delegates
     func configureDelegates() {
         tableView.dataSource = self
@@ -43,10 +45,7 @@ class MovieViewController: UIViewController  {
     
     //TODO:  Estas fent 2 crides simultanees que no saps si l'usuari les va a utilitzar
     func getData () {
-        self.filteredViewModel.getData(succes: { ()
-            self.tableView.reloadData()
-        })
-        self.viewModel.getData(succes: { ()
+        self.viewModel.getData(completionHandler: { ()
             self.tableView.reloadData()
         })
     }
@@ -60,7 +59,7 @@ extension MovieViewController: UITableViewDelegate {
 extension MovieViewController: UITableViewDataSource {
     ///Display the number of rows in tableview
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return filteredViewModel.numberOfRows
+        return viewModel.numberOfRows
     }
     
     
@@ -77,12 +76,12 @@ extension MovieViewController: UITableViewDataSource {
     /// - Returns: cell with information
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MovieCell", for:  indexPath) as! MovieCell
-        filteredViewModel.index = indexPath.row
+       viewModel.index = indexPath.row
         
-        cell.setProperties(titleLabel: filteredViewModel.title,
-                           overviewLabel: filteredViewModel.overview,
-                           voteLabel: filteredViewModel.voteAverage,
-                           movieImageUrl: filteredViewModel.portrait)
+        cell.setProperties(titleLabel: viewModel.title,
+                           overviewLabel: viewModel.overview,
+                           voteLabel: viewModel.voteAverage,
+                           movieImageUrl: viewModel.portrait)
         
         return cell
     }
@@ -96,17 +95,16 @@ extension MovieViewController: UITableViewDataSource {
         let detailViewController = storyboard?.instantiateViewController(withIdentifier: "detailMovie") as! DetailsVC
         
         searchBar.text = ""
-        filteredViewModel.index = indexPath.row
+        viewModel.index = indexPath.row
         
-        let detailViewModel = DetailViewModel(title: filteredViewModel.title,
-                                              overview: filteredViewModel.overview,
-                                              portrait: filteredViewModel.portrait)
+        let detailViewModel = DetailViewModel(title: viewModel.title,
+                                              overview: viewModel.overview,
+                                              portrait: viewModel.portrait)
         
         detailViewController.detailViewModel = detailViewModel
         
         self.navigationController?.pushViewController(detailViewController, animated: true)
     }
-    
 }
 
 // MARK: - UISearchBarDelegate
@@ -118,13 +116,12 @@ extension MovieViewController: UISearchBarDelegate {
     ///   - searchBar: Searchbar used by user for searching.
     ///   - searchText: Text placed by user.
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        //filteredViewModel.arrayMovies = searchText.isEmpty ? viewModel.arrayMovies : viewModel.arrayMovies!.filter({ (movies : Results) -> Bool in
-        // for titles in movies.title! {
-        //let title = titles
-        //}
-        //return title!.range(of: searchText, options: .caseInsensitive) != nil
-        // })
-        tableView.reloadData()
+       
+        viewModel.filterMovies(text: searchText, completionHandler: {
+            self.tableView.reloadData()
+    }) { (Error) in
+            Error.localizedDescription
+        }
     }
     
     /// Toggle keyboard when user touch searchbar.

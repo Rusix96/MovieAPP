@@ -12,10 +12,14 @@ public class MoviesRepositories: NSObject {
     /// Obtain data of movies using URL, decode the JSON and save it into array.
     ///
     /// - Parameter succed: Update object Results
-    func parseData (succes succed: @escaping ( ([Results]?, Error?) -> ( ))) {
+    func parseData (completionHandler: @escaping ( ([Results]?, Error?) -> ( ))) {
         guard let movieURL = URL(string: finalUrl) else {
             return
         }
+        
+        // TODO Reachability - Saber si te internet
+        // completionHandler(nil, error)
+        
         DispatchQueue.global(qos: .background).async {
             URLSession.shared.dataTask(with: movieURL) { (data, response, error) in
                 if let data = data {
@@ -26,17 +30,49 @@ public class MoviesRepositories: NSObject {
                             arrayMov.append(movie)
                         }
                         DispatchQueue.main.async {
-                            succed(arrayMov, error)
+                            completionHandler(arrayMov, error)
                         }
                         
                     } catch let error {
-                        DispatchQueue.main.async {
-                            print(error.localizedDescription)
-                        }
+                        completionHandler(nil, error)
                     }
                 } else {
                     DispatchQueue.main.async {
-                        return
+                        completionHandler(nil, error)
+                    }
+                }
+                }.resume()
+        }
+        
+    }
+    
+    func filterData (texto: String, completionHandler: @escaping ( ([Results]?, Error?) -> ( ))) {
+        guard let movieURL = URL(string: filterdUrl  + texto) else {
+            return
+        }
+        
+        // TODO Reachability - Saber si te internet
+        // completionHandler(nil, error)
+        
+        DispatchQueue.global(qos: .background).async {
+            URLSession.shared.dataTask(with: movieURL) { (data, response, error) in
+                if let data = data {
+                    do {
+                        var arrayMov = [Results]()
+                        let results = try JSONDecoder().decode(MovieModel.self, from: data)
+                        for movie in results.results {
+                            arrayMov.append(movie)
+                        }
+                        DispatchQueue.main.async {
+                            completionHandler(arrayMov, error)
+                        }
+                        
+                    } catch let error {
+                        completionHandler(nil, error)
+                    }
+                } else {
+                    DispatchQueue.main.async {
+                        completionHandler(nil, error)
                     }
                 }
                 }.resume()
