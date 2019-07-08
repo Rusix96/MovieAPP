@@ -76,7 +76,7 @@ class MovieViewModel: NSObject {
     func getData (completionHandler: @escaping (() -> ()) ) {
         MoviesRepositories.sharedMovies.parseData { (arrayMov, error) in
             if error != nil {
-                error?.localizedDescription
+                print(error?.localizedDescription) 
             } else {
                 self.arrayMovies = arrayMov
                 completionHandler()

@@ -12,7 +12,7 @@ import Kingfisher
 
 class MovieViewController: UIViewController  {
     
-    //TODO No es pot usar 2 instancies del mateix ViewModel en una mateixa vista
+    //FINISHED No es pot usar 2 instancies del mateix ViewModel en una mateixa vista
     //FINISHED Estas utilitzant var enlloc de let en una variable que no canvia
     //FINISHED Comentar tots els metodes custom
     let viewModel = MovieViewModel()
@@ -20,6 +20,7 @@ class MovieViewController: UIViewController  {
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
+    var refreshControl: UIRefreshControl = UIRefreshControl()
     
     //FINISHED Dividir el codi per Data / UI / Delegates amb funcions
     override func viewDidLoad() {
@@ -41,12 +42,20 @@ class MovieViewController: UIViewController  {
     func configureUI() {
         self.hideKeyboardWhenTappedAround()
         self.navigationController?.isNavigationBarHidden = true
+        tableView.addSubview(refreshControl)
+        let attributes = [NSAttributedString.Key.foregroundColor: UIColor.orange]
+        refreshControl.tintColor = #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
+        refreshControl.attributedTitle = NSAttributedString(string: "Reloading", attributes: attributes)
     }
-    
     //TODO:  Estas fent 2 crides simultanees que no saps si l'usuari les va a utilitzar
     func getData () {
         self.viewModel.getData(completionHandler: { ()
             self.tableView.reloadData()
+        })
+    }
+    func refreshData() {
+        self.viewModel.getData(completionHandler: { ()
+            self.refreshControl.endRefreshing()
         })
     }
 }
@@ -62,7 +71,6 @@ extension MovieViewController: UITableViewDataSource {
         return viewModel.numberOfRows
     }
     
-    
     //TODO:  Cada cela s'ha d'adaptar automaticamnt per contraints
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 100
@@ -75,6 +83,7 @@ extension MovieViewController: UITableViewDataSource {
     ///   - indexPath: Represent the path to a specific location in a tree of nested arrays.
     /// - Returns: cell with information
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        refreshData()
         let cell = tableView.dequeueReusableCell(withIdentifier: "MovieCell", for:  indexPath) as! MovieCell
         viewModel.index = indexPath.row
         
@@ -82,6 +91,7 @@ extension MovieViewController: UITableViewDataSource {
                            overviewLabel: viewModel.overview,
                            voteLabel: viewModel.voteAverage,
                            movieImageUrl: viewModel.portrait)
+        
         
         return cell
     }
@@ -120,7 +130,7 @@ extension MovieViewController: UISearchBarDelegate {
         viewModel.filterMovies(text: searchText, completionHandler: {
             self.tableView.reloadData()
         }) { (Error) in
-            Error.localizedDescription
+            print(Error.localizedDescription)
         }
     }
     
