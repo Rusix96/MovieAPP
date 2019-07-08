@@ -52,7 +52,13 @@ class MovieViewModel: NSObject {
             return 0
         }
     }
-    //FUNCION QUE PUEDA FILTRAR
+  
+    /// Obtain the data of Movies and compare it with searchtext for fetch the results.
+    ///
+    /// - Parameters:
+    ///   - text: text of searchtext.
+    ///   - completionHandler: obtain the data of movies.
+    ///   - throwError: error
     func filterMovies (text: String, completionHandler: @escaping (() -> ()), throwError: @escaping ((Error) -> ())) {
         MoviesRepositories.sharedMovies.filterData(texto: text) { (arrayMov, error) in
             if error != nil {
