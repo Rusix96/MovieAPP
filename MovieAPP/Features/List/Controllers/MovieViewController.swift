@@ -47,7 +47,7 @@ class MovieViewController: UIViewController  {
         refreshControl.tintColor = #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
         refreshControl.attributedTitle = NSAttributedString(string: "Reloading", attributes: attributes)
     }
-    //TODO:  Estas fent 2 crides simultanees que no saps si l'usuari les va a utilitzar
+    //FINISHED:  Estas fent 2 crides simultanees que no saps si l'usuari les va a utilitzar
     func getData () {
         self.viewModel.getData(completionHandler: { ()
             self.tableView.reloadData()
