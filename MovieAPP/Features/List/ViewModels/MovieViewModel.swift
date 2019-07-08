@@ -52,7 +52,7 @@ class MovieViewModel: NSObject {
             return 0
         }
     }
-  
+    
     /// Obtain the data of Movies and compare it with searchtext for fetch the results.
     ///
     /// - Parameters:
@@ -63,14 +63,12 @@ class MovieViewModel: NSObject {
         MoviesRepositories.sharedMovies.filterData(texto: text) { (arrayMov, error) in
             if error != nil {
                 throwError(error!)
-                
             } else {
                 self.arrayMovies = arrayMov
-               completionHandler()
+                completionHandler()
             }
         }
     }
-    
     
     /// Obtain the data of movies
     ///
@@ -78,7 +76,7 @@ class MovieViewModel: NSObject {
     func getData (completionHandler: @escaping (() -> ()) ) {
         MoviesRepositories.sharedMovies.parseData { (arrayMov, error) in
             if error != nil {
-            error?.localizedDescription
+                error?.localizedDescription
             } else {
                 self.arrayMovies = arrayMov
                 completionHandler()

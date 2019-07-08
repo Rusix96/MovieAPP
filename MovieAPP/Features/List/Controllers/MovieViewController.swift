@@ -30,7 +30,7 @@ class MovieViewController: UIViewController  {
         hideKeyboardWhenTappedAround()
         
     }
-   
+    
     ///Place all the dataSources and delegates
     func configureDelegates() {
         tableView.dataSource = self
@@ -76,7 +76,7 @@ extension MovieViewController: UITableViewDataSource {
     /// - Returns: cell with information
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MovieCell", for:  indexPath) as! MovieCell
-       viewModel.index = indexPath.row
+        viewModel.index = indexPath.row
         
         cell.setProperties(titleLabel: viewModel.title,
                            overviewLabel: viewModel.overview,
@@ -116,10 +116,10 @@ extension MovieViewController: UISearchBarDelegate {
     ///   - searchBar: Searchbar used by user for searching.
     ///   - searchText: Text placed by user.
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-       
+        
         viewModel.filterMovies(text: searchText, completionHandler: {
             self.tableView.reloadData()
-    }) { (Error) in
+        }) { (Error) in
             Error.localizedDescription
         }
     }
