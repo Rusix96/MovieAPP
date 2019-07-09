@@ -63,8 +63,7 @@ class MovieViewModel: NSObject {
     func filterMovies (text: String, completionHandler: @escaping (() -> ()), throwError: @escaping ((Error) -> ())) {
         MoviesRepositories.sharedMovies.filterData(text: text) { (arrayMov, error) in
             if error != nil {
-                
-                
+            
             } else {
                 self.arrayMovies = arrayMov
                 completionHandler()

@@ -9,7 +9,7 @@
 import UIKit
 
 class NetworkView: UIView {
-
+    
     @IBOutlet weak var errorLabel: UILabel!
     @IBAction func passToMovieVC(_ sender: Any) {
         

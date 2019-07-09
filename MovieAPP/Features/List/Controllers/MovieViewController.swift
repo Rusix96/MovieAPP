@@ -134,7 +134,7 @@ extension MovieViewController: UISearchBarDelegate {
             print(Error.localizedDescription)
         }
     }
-    
+
     /// Toggle keyboard when user touch searchbar.
     ///
     /// - Parameter searchBar: Searchbar used by user for searching.

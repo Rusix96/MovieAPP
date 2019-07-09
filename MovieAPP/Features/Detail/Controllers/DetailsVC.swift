@@ -23,7 +23,7 @@ class DetailsVC: UIViewController {
         super.viewDidLoad()
         configureUI()
     }
-    
+
     ///Add visual changes to UI
     func configureUI() {
         if let viewModel = detailViewModel {

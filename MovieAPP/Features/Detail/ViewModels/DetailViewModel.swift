@@ -21,7 +21,7 @@ class DetailViewModel: NSObject {
         self.overview = overview
         self.portrait = portrait
     }
-    
+
     override init() {
         self.title = ""
         self.overview = ""

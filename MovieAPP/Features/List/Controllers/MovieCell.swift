@@ -29,7 +29,7 @@ class MovieCell: UITableViewCell {
         self.overviewLabel.text = overviewLabel
         self.voteLabel.text = voteLabel
         if let imageURL = URL(string: movieImageUrl) {
-            self.movieImageView.kf.setImage(with: imageURL)
+        self.movieImageView.kf.setImage(with: imageURL)
         }
     }
     
