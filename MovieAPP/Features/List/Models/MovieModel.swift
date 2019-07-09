@@ -56,5 +56,3 @@ struct Results: Codable {
         case adult = "adult"
     }
 }
-
-

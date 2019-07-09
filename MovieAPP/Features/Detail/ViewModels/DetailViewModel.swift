@@ -27,6 +27,4 @@ class DetailViewModel: NSObject {
         self.overview = ""
         self.portrait = ""
     }
-    
-    
 }

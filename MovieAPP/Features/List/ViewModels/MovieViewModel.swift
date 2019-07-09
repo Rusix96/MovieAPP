@@ -71,14 +71,13 @@ class MovieViewModel: NSObject {
             }
         }
     }
-    
     /// Obtain the data of movies
     ///
     /// - Parameter succed: Asign data of movies to array
-    func getData (completionHandler: @escaping (() -> ()), throwError: @escaping ((Error) -> ()) ) {
+    func getData (completionHandler: @escaping (() -> ( )), throwError: @escaping ((Error) -> ())) {
         MoviesRepositories.sharedMovies.parseData { (arrayMov, error) in
             if error != nil {
-                print(error?.localizedDescription) 
+                throwError(error!)
             } else {
                 self.arrayMovies = arrayMov
                 completionHandler()

@@ -41,6 +41,4 @@ class DetailsVC: UIViewController {
     @IBAction func backButtonPushed(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
     }
-    
-    
 }

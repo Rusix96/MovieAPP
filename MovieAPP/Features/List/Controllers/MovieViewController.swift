@@ -49,16 +49,16 @@ class MovieViewController: UIViewController  {
     //FINISHED:  Estas fent 2 crides simultanees que no saps si l'usuari les va a utilitzar
     func getData () {
         self.viewModel.getData(completionHandler: {
-           self.tableView.reloadData()
+            self.tableView.reloadData()
         }) { (Error) in
             print(Error.localizedDescription)
         }
     }
-   /* func refreshData() {
-        self.viewModel.getData(completionHandler: { ()
-            self.refreshControl.endRefreshing()
-        })
-    }*/
+    /* func refreshData() {
+     self.viewModel.getData(completionHandler: { ()
+     self.refreshControl.endRefreshing()
+     })
+     }*/
 }
 
 // MARK: - UITableViewDelegate
@@ -142,4 +142,3 @@ extension MovieViewController: UISearchBarDelegate {
         searchBar.resignFirstResponder()
     }
 }
-

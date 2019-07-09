@@ -15,6 +15,5 @@ class NetworkView: UIView {
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let secondVC = storyboard.instantiateViewController(withIdentifier: "moviesVC") as! MovieViewController
-
     }
 }
