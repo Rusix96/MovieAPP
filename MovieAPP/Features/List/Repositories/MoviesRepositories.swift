@@ -46,8 +46,8 @@ public class MoviesRepositories: NSObject {
         
     }
     
-    func filterData (texto: String, completionHandler: @escaping ( ([Results]?, Error?) -> ( ))) {
-        guard let movieURL = URL(string: filterdUrl  + texto) else {
+    func filterData (text: String, completionHandler: @escaping ( ([Results]?, Error?) -> ( ))) {
+        guard let movieURL = URL(string: filterdUrl  + text) else {
             return
         }
         

@@ -29,7 +29,6 @@ class MovieViewController: UIViewController  {
         configureUI()
         getData()
         hideKeyboardWhenTappedAround()
-        
     }
     
     ///Place all the dataSources and delegates
@@ -49,15 +48,17 @@ class MovieViewController: UIViewController  {
     }
     //FINISHED:  Estas fent 2 crides simultanees que no saps si l'usuari les va a utilitzar
     func getData () {
-        self.viewModel.getData(completionHandler: { ()
-            self.tableView.reloadData()
-        })
+        self.viewModel.getData(completionHandler: {
+           self.tableView.reloadData()
+        }) { (Error) in
+            print(Error.localizedDescription)
+        }
     }
-    func refreshData() {
+   /* func refreshData() {
         self.viewModel.getData(completionHandler: { ()
             self.refreshControl.endRefreshing()
         })
-    }
+    }*/
 }
 
 // MARK: - UITableViewDelegate
@@ -83,7 +84,7 @@ extension MovieViewController: UITableViewDataSource {
     ///   - indexPath: Represent the path to a specific location in a tree of nested arrays.
     /// - Returns: cell with information
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        refreshData()
+        //refreshData()
         let cell = tableView.dequeueReusableCell(withIdentifier: "MovieCell", for:  indexPath) as! MovieCell
         viewModel.index = indexPath.row
         

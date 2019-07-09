@@ -9,6 +9,7 @@
 import UIKit
 import Kingfisher
 
+
 class MovieViewModel: NSObject {
     var arrayMovies: [Results]?
     var index: Int = 0
@@ -60,9 +61,10 @@ class MovieViewModel: NSObject {
     ///   - completionHandler: obtain the data of movies.
     ///   - throwError: error
     func filterMovies (text: String, completionHandler: @escaping (() -> ()), throwError: @escaping ((Error) -> ())) {
-        MoviesRepositories.sharedMovies.filterData(texto: text) { (arrayMov, error) in
+        MoviesRepositories.sharedMovies.filterData(text: text) { (arrayMov, error) in
             if error != nil {
-                throwError(error!)
+                
+                
             } else {
                 self.arrayMovies = arrayMov
                 completionHandler()
@@ -73,7 +75,7 @@ class MovieViewModel: NSObject {
     /// Obtain the data of movies
     ///
     /// - Parameter succed: Asign data of movies to array
-    func getData (completionHandler: @escaping (() -> ()) ) {
+    func getData (completionHandler: @escaping (() -> ()), throwError: @escaping ((Error) -> ()) ) {
         MoviesRepositories.sharedMovies.parseData { (arrayMov, error) in
             if error != nil {
                 print(error?.localizedDescription) 

@@ -10,13 +10,11 @@ import UIKit
 
 class NetworkView: UIView {
 
+    @IBOutlet weak var errorLabel: UILabel!
     @IBAction func passToMovieVC(_ sender: Any) {
+        
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let secondVC = storyboard.instantiateViewController(withIdentifier: "moviesVC") as! MovieViewController
-        
-        
-        
 
     }
-    
 }
