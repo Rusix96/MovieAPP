@@ -48,7 +48,7 @@ class MovieViewController: UIViewController, errorMessageDelegate {
         refreshControl.tintColor = #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
         refreshControl.attributedTitle = NSAttributedString(string: "Reloading", attributes: attributes)
     }
-
+    
     //FINISHED:  Estas fent 2 crides simultanees que no saps si l'usuari les va a utilitzar
     func getData () {
         self.viewModel.getData(completionHandler: {
@@ -62,7 +62,7 @@ class MovieViewController: UIViewController, errorMessageDelegate {
             }
             
         }
-
+        
     }
     /* func refreshData() {
      self.viewModel.getData(completionHandler: { ()
@@ -144,7 +144,7 @@ extension MovieViewController: UISearchBarDelegate {
             print(Error.localizedDescription)
         }
     }
-
+    
     /// Toggle keyboard when user touch searchbar.
     ///
     /// - Parameter searchBar: Searchbar used by user for searching.

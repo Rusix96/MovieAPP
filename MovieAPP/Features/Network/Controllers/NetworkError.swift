@@ -23,16 +23,14 @@ class NetworkError: UIView {
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-       
+        
     }
     
     @IBAction func retry(_ sender: Any) {
-    delegate?.refresh()
+        delegate?.refresh()
     }
     
     func showAlert(error: Error) {
-       // errorLabel.text = error as? String
+        // errorLabel.text = error as? String
     }
-    
-    
 }
