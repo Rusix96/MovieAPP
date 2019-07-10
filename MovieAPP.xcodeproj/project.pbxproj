@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		36AE3D020F35B149510212F7 /* Pods_MovieAPPTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DEA5BBA0D8766EABB78656A8 /* Pods_MovieAPPTests.framework */; };
 		67017B4973C00FA7B0AA3E88 /* Pods_MovieAPPUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5547DE989934752E7B91BE78 /* Pods_MovieAPPUITests.framework */; };
+		7F360B9E22D6196E004942D1 /* ErrorMessageDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F360B9D22D6196E004942D1 /* ErrorMessageDelegate.swift */; };
 		7FBF27D522CB66720038A237 /* MovieModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FBF27D422CB66720038A237 /* MovieModel.swift */; };
 		7FE78A0622CF4D9100A2FE3E /* NetworkError.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7FE78A0522CF4D9100A2FE3E /* NetworkError.xib */; };
 		7FE78A0D22CF4FCB00A2FE3E /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FE78A0C22CF4FCB00A2FE3E /* NetworkError.swift */; };
@@ -51,6 +52,7 @@
 		2688FE11183AE6BEB0A54A95 /* Pods-MovieAPPTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MovieAPPTests.debug.xcconfig"; path = "Target Support Files/Pods-MovieAPPTests/Pods-MovieAPPTests.debug.xcconfig"; sourceTree = "<group>"; };
 		345F05E16F439338A067F492 /* Pods_MovieAPP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MovieAPP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5547DE989934752E7B91BE78 /* Pods_MovieAPPUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MovieAPPUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7F360B9D22D6196E004942D1 /* ErrorMessageDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorMessageDelegate.swift; sourceTree = "<group>"; };
 		7FBF27D422CB66720038A237 /* MovieModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieModel.swift; sourceTree = "<group>"; };
 		7FE78A0522CF4D9100A2FE3E /* NetworkError.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NetworkError.xib; sourceTree = "<group>"; };
 		7FE78A0C22CF4FCB00A2FE3E /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
@@ -132,6 +134,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		7F360B9922D618FE004942D1 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				7F360B9D22D6196E004942D1 /* ErrorMessageDelegate.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
 		7FE21AF322C61FA2006CE85B /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -154,7 +164,8 @@
 		7FE78A0722CF4F5800A2FE3E /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				7FE78A0822CF4F6500A2FE3E /* Controllers */,
+				7F360B9922D618FE004942D1 /* Protocols */,
+				7FE78A0822CF4F6500A2FE3E /* Views */,
 				7FE78A0922CF4F7000A2FE3E /* ViewModels */,
 				7FE78A0A22CF4F8D00A2FE3E /* Models */,
 				7FE78A0B22CF4F9400A2FE3E /* Repositories */,
@@ -162,12 +173,12 @@
 			path = Network;
 			sourceTree = "<group>";
 		};
-		7FE78A0822CF4F6500A2FE3E /* Controllers */ = {
+		7FE78A0822CF4F6500A2FE3E /* Views */ = {
 			isa = PBXGroup;
 			children = (
 				7FE78A0C22CF4FCB00A2FE3E /* NetworkError.swift */,
 			);
-			path = Controllers;
+			path = Views;
 			sourceTree = "<group>";
 		};
 		7FE78A0922CF4F7000A2FE3E /* ViewModels */ = {
@@ -584,6 +595,7 @@
 				84076E4E22C3673000DD5F80 /* MovieViewModel.swift in Sources */,
 				7FE78A0D22CF4FCB00A2FE3E /* NetworkError.swift in Sources */,
 				84D1C87522C26B4500177853 /* MoviesRepositories.swift in Sources */,
+				7F360B9E22D6196E004942D1 /* ErrorMessageDelegate.swift in Sources */,
 				84ED61DA22B068B900532600 /* MovieCell.swift in Sources */,
 				84070A2F22C5005100EB0AFF /* DetailViewModel.swift in Sources */,
 				84070A2722C4FADA00EB0AFF /* Constants.swift in Sources */,

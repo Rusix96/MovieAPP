@@ -10,7 +10,7 @@ import UIKit
 import Kingfisher
 
 
-class MovieViewController: UIViewController, errorMessageDelegate {
+class MovieViewController: UIViewController, ErrorMessageDelegate {
     
     //FINISHED No es pot usar 2 instancies del mateix ViewModel en una mateixa vista
     //FINISHED Estas utilitzant var enlloc de let en una variable que no canvia
@@ -32,6 +32,11 @@ class MovieViewController: UIViewController, errorMessageDelegate {
     }
     func refresh() {
         getData()
+        // Optional binding
+        if let subview = self.tableView.subviews.last {
+            self.tableView.willRemoveSubview(subview)
+        }
+
     }
     ///Place all the dataSources and delegates
     func configureDelegates() {
@@ -56,9 +61,9 @@ class MovieViewController: UIViewController, errorMessageDelegate {
         }) { error in
             // NetworkView.instance.errorLabel.text = Error.localizedDescription
             if let networkView = Bundle.main.loadNibNamed("NetworkError", owner: nil, options: nil)?.first as? NetworkError {
+                networkView.delegate = self
                 self.tableView.addSubview(networkView)
                 networkView.frame = self.tableView.frame
-                networkView.delegate = self
             }
             
         }

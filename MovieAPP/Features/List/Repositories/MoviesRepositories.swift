@@ -21,7 +21,14 @@ public class MoviesRepositories: NSObject {
         // completionHandler(nil, error)
         
         DispatchQueue.global(qos: .background).async {
-            URLSession.shared.dataTask(with: movieURL) { (data, response, error) in
+           
+            let urlRequest = URLRequest(
+                url: movieURL,
+                cachePolicy: .reloadIgnoringLocalAndRemoteCacheData,
+                timeoutInterval: 2
+            )
+
+            URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in
                 if let data = data {
                     do {
                         var arrayMov = [Results]()

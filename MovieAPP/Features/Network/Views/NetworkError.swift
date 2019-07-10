@@ -8,13 +8,9 @@
 
 import UIKit
 
-protocol errorMessageDelegate {
-    func refresh()
-}
-
 class NetworkError: UIView {
     
-    var delegate: errorMessageDelegate?
+    var delegate: ErrorMessageDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
