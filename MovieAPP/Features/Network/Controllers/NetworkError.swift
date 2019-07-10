@@ -7,9 +7,15 @@
 //
 
 import UIKit
+import Foundation
+
+protocol errorMessageDelegate {
+    func refresh()
+}
 
 class NetworkError: UIView {
     
+    var delegate: errorMessageDelegate?
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
@@ -17,6 +23,10 @@ class NetworkError: UIView {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
        
+    }
+    
+    @IBAction func retry(_ sender: Any) {
+    delegate?.refresh()
     }
     
     func showAlert(error: Error) {
