@@ -16,6 +16,7 @@ protocol errorMessageDelegate {
 class NetworkError: UIView {
     
     var delegate: errorMessageDelegate?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
