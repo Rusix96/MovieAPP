@@ -97,8 +97,8 @@
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
-                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="h8d-g4-5m3"/>
-                                    <outlet property="delegate" destination="BYZ-38-t0r" id="F2P-Pi-pXi"/>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="kcz-UB-un6"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="ewL-NJ-AIT"/>
                                 </connections>
                             </tableView>
                         </subviews>
@@ -113,8 +113,8 @@
                     </view>
                     <navigationItem key="navigationItem" id="XnV-ke-N9c"/>
                     <connections>
-                        <outlet property="searchBar" destination="wq2-tA-uB0" id="uNQ-YX-poe"/>
-                        <outlet property="tableView" destination="whb-6O-OKj" id="TgI-LZ-q37"/>
+                        <outlet property="searchBar" destination="wq2-tA-uB0" id="YNb-qO-dtL"/>
+                        <outlet property="tableView" destination="whb-6O-OKj" id="5wb-gv-Pjt"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -214,7 +214,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="cai-dv-o41"/>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="kFi-PS-81q"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CdZ-6b-CMq" userLabel="First Responder" sceneMemberID="firstResponder"/>
