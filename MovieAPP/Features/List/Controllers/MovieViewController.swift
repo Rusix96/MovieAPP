@@ -32,9 +32,11 @@ class MovieViewController: UIViewController, ErrorMessageDelegate {
     }
     func refresh() {
         getData()
-        // Optional binding
-        if let subview = self.tableView.subviews.last {
-            self.tableView.willRemoveSubview(subview)
+        
+        for subView in self.tableView.subviews {
+            if let subView = subView as? NetworkError {
+                subView.removeFromSuperview()
+            }
         }
 
     }
@@ -58,6 +60,7 @@ class MovieViewController: UIViewController, ErrorMessageDelegate {
     func getData () {
         self.viewModel.getData(completionHandler: {
             self.tableView.reloadData()
+            
         }) { error in
             // NetworkView.instance.errorLabel.text = Error.localizedDescription
             if let networkView = Bundle.main.loadNibNamed("NetworkError", owner: nil, options: nil)?.first as? NetworkError {
