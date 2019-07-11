@@ -27,18 +27,18 @@ class MovieViewController: UIViewController, ErrorMessageDelegate {
         super.viewDidLoad()
         configureDelegates()
         configureUI()
+        createConstraints()
         getData()
         hideKeyboardWhenTappedAround()
     }
     func refresh() {
         getData()
-        
         for subView in self.tableView.subviews {
             if let subView = subView as? NetworkError {
                 subView.removeFromSuperview()
             }
         }
-
+        
     }
     ///Place all the dataSources and delegates
     func configureDelegates() {
@@ -54,6 +54,45 @@ class MovieViewController: UIViewController, ErrorMessageDelegate {
         let attributes = [NSAttributedString.Key.foregroundColor: UIColor.orange]
         refreshControl.tintColor = #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
         refreshControl.attributedTitle = NSAttributedString(string: "Reloading", attributes: attributes)
+    }
+    
+    func createConstraints() {
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        tableView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        tableView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        
+        
+      /*  NSLayoutConstraint(item: tableView!,
+         attribute: .leadingMargin,
+         relatedBy: .equal,
+         toItem: view,
+         attribute: .leadingMargin,
+         multiplier: 1,
+         constant: 0).isActive = true
+         NSLayoutConstraint(item: tableView!,
+         attribute: .trailingMargin,
+         relatedBy: .equal,
+         toItem: view,
+         attribute: .trailingMargin,
+         multiplier: 1,
+         constant: 0).isActive = true
+         NSLayoutConstraint(item: tableView!,
+         attribute: .top,
+         relatedBy: .equal,
+         toItem: view,
+         attribute: .top,
+         multiplier: 1,
+         constant: 0).isActive = true
+         NSLayoutConstraint(item: tableView!,
+         attribute: .height,
+         relatedBy: .equal,
+         toItem: view,
+         attribute: .width,
+         multiplier: 1,
+         constant: 0).isActive = true*/
+        
     }
     
     //FINISHED:  Estas fent 2 crides simultanees que no saps si l'usuari les va a utilitzar

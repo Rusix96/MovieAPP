@@ -22,8 +22,9 @@ class DetailsVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
+        configureConstraints()
     }
-
+    
     ///Add visual changes to UI
     func configureUI() {
         if let viewModel = detailViewModel {
@@ -33,6 +34,45 @@ class DetailsVC: UIViewController {
             let imageUrl = URL(string: imageMovie)!
             self.movieImage.kf.setImage(with: imageUrl)
         }
+    }
+    
+    func configureConstraints() {
+        
+        //MOVIE
+        movieImage.translatesAutoresizingMaskIntoConstraints = false
+        movieImage.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        movieImage.topAnchor.constraint(equalTo: view.topAnchor, constant: 100).isActive = true
+        movieImage.widthAnchor.constraint(equalToConstant: 500).isActive = true
+        movieImage.heightAnchor.constraint(equalToConstant: 500).isActive = true
+        
+        //TITLE
+        titleLabel.topAnchor.constraint(equalTo: movieImage.bottomAnchor).isActive = true
+        
+       /* movieImage.translatesAutoresizingMaskIntoConstraints = false
+        movieImage.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        movieImage.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        movieImage.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        // movieImage.bottomAnchor.constraint(equalTo: titleLabel.bottomAnchor).isActive = false
+         movieImage.widthAnchor.constraint(equalToConstant: 500).isActive = true
+         movieImage.heightAnchor.constraint(equalToConstant: 500).isActive = true
+        
+        
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        titleLabel.topAnchor.constraint(equalTo: movieImage.bottomAnchor).isActive = true
+        titleLabel.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        titleLabel.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        titleLabel.bottomAnchor.constraint(equalTo: overviewLabel.topAnchor, constant: -200).isActive = true
+        //titleLabel.heightAnchor.constraint(equalToConstant: 500).isActive = true
+        //titleLabel.widthAnchor.constraint(equalToConstant: 300).isActive = true
+        
+        overviewLabel.translatesAutoresizingMaskIntoConstraints = false
+        overviewLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor).isActive = true
+        overviewLabel.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        overviewLabel.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        overviewLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        // overviewLabel.heightAnchor.constraint(equalToConstant: 500).isActive = true
+        //overviewLabel.widthAnchor.constraint(equalToConstant: 300).isActive = true
+        */
     }
     
     /// Go back to MovieViewController

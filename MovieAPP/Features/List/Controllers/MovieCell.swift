@@ -16,6 +16,7 @@ class MovieCell: UITableViewCell {
     @IBOutlet weak private var voteLabel: UILabel!
     @IBOutlet weak private var movieImageView: UIImageView!
     
+    
     // CMD + Alt + Shift + 7
     /// Create a constructor, we use it for create movie objects
     ///
@@ -35,9 +36,11 @@ class MovieCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
+    
 }
