@@ -45,6 +45,7 @@ class DetailsVC: UIViewController {
         scrollView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         scrollView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         scrollView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         scrollView.widthAnchor.constraint(equalToConstant: 1000).isActive = true
         scrollView.heightAnchor.constraint(equalToConstant: 1000).isActive = true
         
@@ -56,15 +57,22 @@ class DetailsVC: UIViewController {
         movieImage.heightAnchor.constraint(equalToConstant: 500).isActive = true
         
         //TITLE
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        titleLabel.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor).isActive = true
         titleLabel.topAnchor.constraint(equalTo: movieImage.bottomAnchor).isActive = true
-        //titleLabel.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        titleLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 100).isActive = true
         //titleLabel.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-        titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+        //titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        //titleLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         titleLabel.bottomAnchor.constraint(equalTo: overviewLabel.topAnchor).isActive = true
+        titleLabel.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        titleLabel.heightAnchor.constraint(equalToConstant: 100).isActive = true
         
         //OVERVIEW
+        //overviewLabel.translatesAutoresizingMaskIntoConstraints = false
         overviewLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor).isActive = true
         overviewLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        
         
         
         
