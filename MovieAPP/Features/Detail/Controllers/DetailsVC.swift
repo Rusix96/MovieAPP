@@ -47,8 +47,20 @@ class DetailsVC: UIViewController {
         
         //TITLE
         titleLabel.topAnchor.constraint(equalTo: movieImage.bottomAnchor).isActive = true
+        //titleLabel.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        //titleLabel.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+        titleLabel.bottomAnchor.constraint(equalTo: overviewLabel.topAnchor).isActive = true
         
-       /* movieImage.translatesAutoresizingMaskIntoConstraints = false
+        //OVERVIEW
+        overviewLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor).isActive = true
+        overviewLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+       
+        
+        
+        
+        
+        /* movieImage.translatesAutoresizingMaskIntoConstraints = false
         movieImage.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         movieImage.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         movieImage.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
