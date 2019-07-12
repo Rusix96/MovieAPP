@@ -12,11 +12,7 @@ import Kingfisher
 
 class MovieViewController: UIViewController, ErrorMessageDelegate {
     
-    //FINISHED No es pot usar 2 instancies del mateix ViewModel en una mateixa vista
-    //FINISHED Estas utilitzant var enlloc de let en una variable que no canvia
-    //FINISHED Comentar tots els metodes custom
     let viewModel = MovieViewModel()
-    let filteredViewModel = MovieViewModel()
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
@@ -27,10 +23,9 @@ class MovieViewController: UIViewController, ErrorMessageDelegate {
         super.viewDidLoad()
         configureDelegates()
         configureUI()
-        createConstraints()
         getData()
-        hideKeyboardWhenTappedAround()
     }
+
     func refresh() {
         getData()
         for subView in self.tableView.subviews {
@@ -38,78 +33,38 @@ class MovieViewController: UIViewController, ErrorMessageDelegate {
                 subView.removeFromSuperview()
             }
         }
-        
     }
+
     ///Place all the dataSources and delegates
     func configureDelegates() {
         tableView.dataSource = self
         tableView.delegate = self
         searchBar.delegate = self
     }
+
     /// Add visual changes to UI
     func configureUI() {
-        self.hideKeyboardWhenTappedAround()
-        self.navigationController?.isNavigationBarHidden = true
+        hideKeyboardWhenTappedAround()
+        navigationController?.isNavigationBarHidden = true
         tableView.addSubview(refreshControl)
         let attributes = [NSAttributedString.Key.foregroundColor: UIColor.orange]
         refreshControl.tintColor = #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
         refreshControl.attributedTitle = NSAttributedString(string: "Reloading", attributes: attributes)
+        tableView.estimatedRowHeight = 168
+        tableView.rowHeight = UITableView.automaticDimension
     }
-    
-    func createConstraints() {
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        tableView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-        tableView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-        tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        
-        
-      /*  NSLayoutConstraint(item: tableView!,
-         attribute: .leadingMargin,
-         relatedBy: .equal,
-         toItem: view,
-         attribute: .leadingMargin,
-         multiplier: 1,
-         constant: 0).isActive = true
-         NSLayoutConstraint(item: tableView!,
-         attribute: .trailingMargin,
-         relatedBy: .equal,
-         toItem: view,
-         attribute: .trailingMargin,
-         multiplier: 1,
-         constant: 0).isActive = true
-         NSLayoutConstraint(item: tableView!,
-         attribute: .top,
-         relatedBy: .equal,
-         toItem: view,
-         attribute: .top,
-         multiplier: 1,
-         constant: 0).isActive = true
-         NSLayoutConstraint(item: tableView!,
-         attribute: .height,
-         relatedBy: .equal,
-         toItem: view,
-         attribute: .width,
-         multiplier: 1,
-         constant: 0).isActive = true*/
-        
-    }
-    
+
     //FINISHED:  Estas fent 2 crides simultanees que no saps si l'usuari les va a utilitzar
-    func getData () {
+    func getData() {
         self.viewModel.getData(completionHandler: {
             self.tableView.reloadData()
-            
         }) { error in
-            // NetworkView.instance.errorLabel.text = Error.localizedDescription
             if let networkView = Bundle.main.loadNibNamed("NetworkError", owner: nil, options: nil)?.first as? NetworkError {
                 networkView.delegate = self
                 self.tableView.addSubview(networkView)
                 networkView.frame = self.tableView.frame
             }
-            
         }
-        
     }
     /* func refreshData() {
      self.viewModel.getData(completionHandler: { ()
@@ -129,11 +84,6 @@ extension MovieViewController: UITableViewDataSource {
         return viewModel.numberOfRows
     }
     
-    //TODO:  Cada cela s'ha d'adaptar automaticamnt per contraints
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100
-    }
-    
     /// Display data of tableView in cells
     ///
     /// - Parameters:
@@ -149,8 +99,6 @@ extension MovieViewController: UITableViewDataSource {
                            overviewLabel: viewModel.overview,
                            voteLabel: viewModel.voteAverage,
                            movieImageUrl: viewModel.portrait)
-        
-        
         return cell
     }
     

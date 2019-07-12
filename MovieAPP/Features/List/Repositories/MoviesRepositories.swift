@@ -39,7 +39,6 @@ public class MoviesRepositories: NSObject {
                         DispatchQueue.main.async {
                             completionHandler(arrayMov, error)
                         }
-                        
                     } catch let error {
                         completionHandler(nil, error)
                     }
