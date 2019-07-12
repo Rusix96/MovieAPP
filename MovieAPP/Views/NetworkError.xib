@@ -30,8 +30,8 @@
                         <action selector="retry:" destination="iN0-l3-epB" eventType="touchUpInside" id="LjD-z3-cT4"/>
                     </connections>
                 </button>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Oh! We found that you don't have internet" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tHP-SS-v6h">
-                    <rect key="frame" x="64" y="504" width="286.5" height="18"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Oh! We found that you don't have internet" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tHP-SS-v6h">
+                    <rect key="frame" x="0.0" y="504" width="414" height="18"/>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
@@ -48,6 +48,8 @@
             <constraints>
                 <constraint firstItem="l6c-R9-RKX" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" constant="-17" id="Cbm-CO-8ia"/>
                 <constraint firstItem="tHP-SS-v6h" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="N6j-AS-DHu"/>
+                <constraint firstItem="tHP-SS-v6h" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="SSs-YJ-XpE"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="tHP-SS-v6h" secondAttribute="trailing" id="dDj-Ud-OSV"/>
                 <constraint firstItem="TNW-r6-HKj" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="fW4-av-uf3"/>
                 <constraint firstItem="tHP-SS-v6h" firstAttribute="top" secondItem="l6c-R9-RKX" secondAttribute="bottom" constant="43" id="lA2-bW-TfL"/>
                 <constraint firstItem="TNW-r6-HKj" firstAttribute="top" secondItem="tHP-SS-v6h" secondAttribute="bottom" constant="53" id="ngz-Zx-PUd"/>
