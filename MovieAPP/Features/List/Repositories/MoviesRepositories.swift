@@ -18,7 +18,7 @@ public class MoviesRepositories: NSObject {
         guard let movieURL = URL(string: finalUrl) else {
             return
         }
-        // TODO Reachability - Saber si te internet
+        // FINISHED Reachability - Saber si te internet
         // completionHandler(nil, error)
         
         if NetworkState().isConnected {
@@ -64,9 +64,10 @@ public class MoviesRepositories: NSObject {
             return
         }
         
-        // TODO Reachability - Saber si te internet
+        // FINISHED Reachability - Saber si te internet
         // completionHandler(nil, error)
-        
+        if NetworkState().isConnected {
+            
         DispatchQueue.global(qos: .background).async {
             URLSession.shared.dataTask(with: movieURL) { (data, response, error) in
                 if let data = data {
@@ -89,6 +90,13 @@ public class MoviesRepositories: NSObject {
                     }
                 }
                 }.resume()
+        }
+        } else {
+            DispatchQueue.main.async {
+                let error = NSError(domain: "MovieAPP", code: NSURLErrorNotConnectedToInternet, userInfo: nil)
+                completionHandler(nil, error)
+            }
+            
         }
     }
 }
