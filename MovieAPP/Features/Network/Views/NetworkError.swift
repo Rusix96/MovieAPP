@@ -28,15 +28,6 @@ class NetworkError: UIView {
         
     }
     
-    func configureConstraints() {
-        errorImage.translatesAutoresizingMaskIntoConstraints = false
-       // errorImage.topAnchor.constraint(equalTo: NetworkError.topAnchor).isActive = true
-        //errorImage.leftAnchor.constraint(equalTo: NetworkError.leftAnchor).isActive = true
-        //errorImage.rightAnchor.constraint(equalTo: NetworkError.rightAnchor).isActive = true
-        //errorImage.bottomAnchor.constraint(equalTo: NetworkError.bottomAnchor).isActive = true
-        
-    }
-    
     @IBAction func retry(_ sender: Any) {
         delegate?.refresh()
     }

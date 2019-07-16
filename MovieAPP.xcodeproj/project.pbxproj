@@ -168,9 +168,6 @@
 			children = (
 				7F360B9922D618FE004942D1 /* Protocols */,
 				7FE78A0822CF4F6500A2FE3E /* Views */,
-				7FE78A0922CF4F7000A2FE3E /* ViewModels */,
-				7FE78A0A22CF4F8D00A2FE3E /* Models */,
-				7FE78A0B22CF4F9400A2FE3E /* Repositories */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -181,27 +178,6 @@
 				7FE78A0C22CF4FCB00A2FE3E /* NetworkError.swift */,
 			);
 			path = Views;
-			sourceTree = "<group>";
-		};
-		7FE78A0922CF4F7000A2FE3E /* ViewModels */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ViewModels;
-			sourceTree = "<group>";
-		};
-		7FE78A0A22CF4F8D00A2FE3E /* Models */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
-		7FE78A0B22CF4F9400A2FE3E /* Repositories */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Repositories;
 			sourceTree = "<group>";
 		};
 		84070A2422C4FAB900EB0AFF /* Library */ = {
@@ -228,8 +204,6 @@
 			children = (
 				84070A2A22C4FF6400EB0AFF /* Controllers */,
 				84070A2B22C4FF6C00EB0AFF /* ViewModels */,
-				84070A2C22C4FF7400EB0AFF /* Models */,
-				84070A2D22C4FF7B00EB0AFF /* Repositories */,
 			);
 			path = Detail;
 			sourceTree = "<group>";
@@ -248,20 +222,6 @@
 				84070A2E22C5005100EB0AFF /* DetailViewModel.swift */,
 			);
 			path = ViewModels;
-			sourceTree = "<group>";
-		};
-		84070A2C22C4FF7400EB0AFF /* Models */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
-		84070A2D22C4FF7B00EB0AFF /* Repositories */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Repositories;
 			sourceTree = "<group>";
 		};
 		842CF5DF22B1162D00D4FE4D /* Extensions */ = {
