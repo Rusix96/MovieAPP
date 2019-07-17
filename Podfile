@@ -19,6 +19,5 @@ target 'MovieAPP' do
 pod 'Alamofire'
 pod 'Kingfisher'
 pod 'ObjectMapper'
-pod 'ReachabilitySwift'
 
 end

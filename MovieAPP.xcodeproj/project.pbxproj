@@ -54,6 +54,7 @@
 		345F05E16F439338A067F492 /* Pods_MovieAPP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MovieAPP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5547DE989934752E7B91BE78 /* Pods_MovieAPPUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MovieAPPUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F360B9D22D6196E004942D1 /* ErrorMessageDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorMessageDelegate.swift; sourceTree = "<group>"; };
+		7FB1DE1922DF067B00F89197 /* MovieAPP.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = MovieAPP.podspec; sourceTree = "<group>"; };
 		7FBF27D422CB66720038A237 /* MovieModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieModel.swift; sourceTree = "<group>"; };
 		7FE78A0522CF4D9100A2FE3E /* NetworkError.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NetworkError.xib; sourceTree = "<group>"; };
 		7FE78A0C22CF4FCB00A2FE3E /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
@@ -279,6 +280,7 @@
 		84ED619F22B0588F00532600 = {
 			isa = PBXGroup;
 			children = (
+				7FB1DE1922DF067B00F89197 /* MovieAPP.podspec */,
 				84ED61AA22B0588F00532600 /* MovieAPP */,
 				84ED61BF22B0589100532600 /* MovieAPPTests */,
 				84ED61CA22B0589100532600 /* MovieAPPUITests */,
