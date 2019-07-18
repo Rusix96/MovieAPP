@@ -63,7 +63,6 @@ class MovieViewController: UIViewController, ErrorMessageDelegate {
                 networkView.delegate = self
                 self.tableView.addSubview(networkView)
                 networkView.frame = self.tableView.frame
-                ("ALL OK")
             }
         }
     }
