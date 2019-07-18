@@ -52,7 +52,6 @@ class MovieViewController: UIViewController, ErrorMessageDelegate {
         refreshControl.attributedTitle = NSAttributedString(string: "Reloading", attributes: attributes)
         tableView.estimatedRowHeight = 168
         tableView.rowHeight = UITableView.automaticDimension
-        print("Something")
     }
 
     //FINISHED:  Estas fent 2 crides simultanees que no saps si l'usuari les va a utilitzar
