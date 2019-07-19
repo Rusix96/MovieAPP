@@ -64,6 +64,7 @@ class MovieViewController: UIViewController, ErrorMessageDelegate {
                 self.tableView.addSubview(networkView)
                 networkView.frame = self.tableView.frame
                 print("SOME MESSAGE!")
+                print("Another Message")
             }
         }
     }
